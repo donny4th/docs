@@ -1,0 +1,121 @@
+---
+title: "Monthly Collection Reports: Generate Frozen Snapshots"
+sidebarTitle: "Monthly Reports"
+description: "Generate and browse frozen monthly snapshots covering value movement, imports, notable additions, CardVault 50 activity, goals, and an AI narrative."
+---
+
+Monthly Collection Reports give you a structured, permanent record of what happened to your collection in a given calendar month. Each report is generated on demand, computed once from your live data, and then frozen — figures never change after generation. Navigate to **Analytics → Monthly Reports** to generate and browse your report archive.
+
+<Note>
+  Reports are **frozen snapshots**. Once generated, the value figures, card counts, and all metrics in a report are permanently fixed. They will not update if you later change card values or add more cards — this is intentional, so your historical record stays accurate.
+</Note>
+
+---
+
+## What a Report Contains
+
+Each monthly report covers the following sections:
+
+<CardGroup cols={2}>
+  <Card title="Value Movement" icon="arrow-trend-up">
+    Total value at the start and end of the month, net change, and a ranked list of **top gainers** and **top decliners** by dollar movement.
+  </Card>
+  <Card title="Collection Snapshot" icon="camera">
+    Card count, unique card types, and key composition metrics captured at report time.
+  </Card>
+  <Card title="Imports" icon="file-import">
+    A summary of any workbook imports processed during the month, including cards added, updated, and removed.
+  </Card>
+  <Card title="Notable Additions" icon="star">
+    Highlights of significant cards added to the collection during the month.
+  </Card>
+  <Card title="CardVault 50 Activity" icon="chart-line">
+    Index value at the start and end of the month, change, and any additions or removals from the index during the period.
+  </Card>
+  <Card title="Goals" icon="bullseye">
+    Progress toward any active collection goals tracked in CardVault during the month.
+  </Card>
+  <Card title="Flags" icon="flag">
+    Any data quality flags or notable conditions surfaced during the period.
+  </Card>
+  <Card title="AI Narrative" icon="wand-magic-sparkles">
+    A plain-English story of the month, written by Claude Sonnet, weaving together the numbers into a readable summary.
+  </Card>
+</CardGroup>
+
+---
+
+## Generating a Report
+
+<Steps>
+  <Step title="Select the month and year">
+    Use the month/year selector at the top of the Monthly Reports page to choose the period you want to generate.
+  </Step>
+  <Step title="Review pre-generation warnings">
+    CardVault checks four conditions before you generate and displays a warning if any apply. Read them carefully — you can still proceed, but you should understand what they mean.
+  </Step>
+  <Step title="Confirm and generate">
+    Click **Generate Report**. A confirmation dialog appears before CardVault begins the Anthropic API call.
+  </Step>
+  <Step title="Wait for the AI narrative">
+    The generation process takes **20–40 seconds** while CardVault queries your data, assembles the report sections, and calls Claude Sonnet to write the narrative. The page will appear unresponsive during this window — this is expected.
+  </Step>
+  <Step title="View the completed report">
+    Once generation finishes, the report appears in the archive list and opens automatically.
+  </Step>
+</Steps>
+
+<Warning>
+  The **Generate** button becomes unresponsive for 20–40 seconds while CardVault makes a synchronous call to the Anthropic API. Do not click it multiple times — the page will not acknowledge additional clicks during this window, but clicking again once the page recovers will generate a duplicate report. Wait for the page to respond before taking any other action.
+</Warning>
+
+---
+
+## Pre-Generation Warnings
+
+CardVault surfaces up to four warnings before you confirm generation. None of them block generation — they inform you so you can decide whether to proceed.
+
+<Accordion title="In-Progress Month">
+  You are generating a report for the **current calendar month**, which is not yet complete. The report will be marked with a **Partial** label and will only reflect data through the moment of generation. You can regenerate a fuller version later in the month, but each generation creates a separate frozen record.
+</Accordion>
+
+<Accordion title="Duplicate Period">
+  A report for this month and year **already exists** in your archive. Generating again will create a second report for the same period. This is occasionally useful if significant data changes happened after the first generation, but be aware that you will have two frozen records for the same month.
+</Accordion>
+
+<Accordion title="Fewer Than 2 Capture Dates">
+  Value movement calculations require at least **two value capture dates** within the selected month. If CardVault finds only one (or zero), the gainers/decliners section and net change figures will be empty or incomplete.
+</Accordion>
+
+<Accordion title="First Report">
+  This is the **first report** you have ever generated. There is no prior month to compare against, so year-over-year and prior-period comparisons will not be available. This is a one-time warning.
+</Accordion>
+
+---
+
+## The Partial Label
+
+If you generate a report for the current, still-in-progress month, CardVault marks it with a **Partial** badge in the archive list. This visually distinguishes incomplete months from fully closed periods and serves as a reminder that the figures may not reflect the full month's activity.
+
+---
+
+## The AI Narrative
+
+The narrative section is written by **Claude Sonnet** (Anthropic) and appears at the bottom of each report. It synthesizes the quantitative sections into a readable story of the month.
+
+Two special cases apply:
+
+| Condition | Behavior |
+|---|---|
+| **Empty period** (no activity) | The narrative uses stock text acknowledging that no significant activity occurred during the month. |
+| **Quiet period** (minimal activity) | The narrative generates a shorter version rather than padding a thin data set with filler prose. |
+
+---
+
+## Markdown View
+
+Every report includes a collapsible **Markdown View** section that renders the full report as raw Markdown text. Expand it to reveal the content, then use the built-in **Copy** button to copy everything to your clipboard in one click.
+
+<Tip>
+  The Markdown View is especially useful for pasting a report into a spreadsheet, a personal wiki, or an email to share a collection summary with someone else.
+</Tip>

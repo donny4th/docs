@@ -1,0 +1,93 @@
+---
+title: "Collection Goals: Track Card Count, Value, and Progress"
+sidebarTitle: "Goals"
+description: "Use Collection Goals to track progress on any collecting objective — by card count, total value, or manual percentage — with live auto-computation."
+---
+
+Collection Goals give your collecting ambitions a concrete, trackable form. Whether you're chasing a complete master set, building toward a total portfolio value, or working through a personal milestone, a Goal turns that target into a progress bar you can watch move over time. Goals live at [/goals](http://127.0.0.1:5000/goals), accessible from Quick Actions in the sidebar.
+
+## Goal Track Types
+
+Every goal has a **track type** that determines how CardVault measures your progress. Choose the type that matches your objective when you create the goal.
+
+| Track Type | How current value is set | Example use case |
+|---|---|---|
+| **Quantity** | Automatically counted — live card count in the linked collection | "Own 50 cards from the 1986-87 Fleer Basketball set" |
+| **Value** | Automatically summed — live total value of all cards in the linked collection | "Build a collection worth $10,000" |
+| **Percentage** | Manually entered by you (0–100) | "Complete my Panini Prizm rainbow — I'll track it myself" |
+
+<Tip>
+Link Quantity and Value goals to a collection for fully automatic progress tracking. Every time you add a card to the linked collection or a card's value updates, your goal's current value refreshes without any manual input.
+</Tip>
+
+### Quantity Goals
+
+A Quantity goal counts the number of cards currently in the linked collection. As you add or remove cards, the count updates live. Set your **target** to the total number of cards that defines completion — for example, 792 for a complete base set.
+
+### Value Goals
+
+A Value goal sums the current value of every card in the linked collection. As eBay lookups, valuation rule applications, or manual edits change card values, the goal total updates automatically. Set your **target** to a dollar amount.
+
+### Percentage Goals
+
+A Percentage goal has no linked collection and no automatic computation. You own the current value entirely — enter a number between 0 and 100 to represent how far along you are. Use this for goals that can't be expressed as a card count or dollar sum, like "finish scanning all my graded cards" or "complete a player rainbow."
+
+<Note>
+For Percentage goals, CardVault stores whatever number you last entered. Nothing updates it automatically — you return to the goal and edit it as your progress changes.
+</Note>
+
+## Creating a Goal
+
+<Steps>
+  <Step title="Go to the Goals page">
+    Click **Goals** in the Quick Actions section of the sidebar, or navigate directly to [http://127.0.0.1:5000/goals](http://127.0.0.1:5000/goals).
+  </Step>
+  <Step title="Click New Goal">
+    Click the **New Goal** button to open the creation form.
+  </Step>
+  <Step title="Enter a name and description">
+    Give your goal a clear name (e.g., "1986-87 Fleer Basketball Master Set"). Add an optional description with any notes about the objective.
+  </Step>
+  <Step title="Choose a track type">
+    Select **Quantity**, **Value**, or **Percentage** from the Track Type dropdown.
+  </Step>
+  <Step title="Set a target">
+    Enter your target number — a card count for Quantity, a dollar amount for Value, or leave at 100 for Percentage.
+  </Step>
+  <Step title="Link a collection (Quantity and Value only)">
+    For Quantity and Value goals, select a collection from the **Linked Collection** dropdown. CardVault will count or sum that collection's cards automatically. This field is hidden for Percentage goals.
+  </Step>
+  <Step title="Add a cover image (optional)">
+    Upload a cover image — typically a scan of a key card — to appear as the goal's thumbnail on the Goals page. Square images work best.
+  </Step>
+  <Step title="Click Create Goal">
+    Click **Create Goal**. The goal appears immediately on the Goals page under the **In Progress** tab.
+  </Step>
+</Steps>
+
+## Editing and Deleting Goals
+
+### Editing
+
+Click the **edit (pencil) icon** on any goal card. Every field — name, description, track type, target, linked collection, and cover image — can be changed. For Percentage goals, editing is also how you update your current progress value.
+
+<Warning>
+Changing the track type of an existing goal (for example, from Quantity to Percentage) will clear the linked collection field. Double-check your settings before saving.
+</Warning>
+
+### Deleting
+
+Click the **Delete** button on the goal's edit form and confirm. Deleting a goal has no effect on the linked collection or any cards — only the goal record is removed.
+
+## In Progress vs. Completed
+
+The Goals page has two tabs:
+
+- **In Progress** — goals where current value has not yet reached the target
+- **Completed** — goals where current value ≥ target
+
+CardVault moves a goal to the **Completed** tab automatically when a Quantity or Value goal's live count reaches or exceeds the target. For Percentage goals, the goal moves to Completed when you manually enter 100.
+
+<Tip>
+Completed goals stay visible and aren't deleted automatically. Use them as a record of milestones you've hit — scroll through the Completed tab to see how far your collection has come.
+</Tip>

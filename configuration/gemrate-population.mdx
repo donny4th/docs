@@ -1,0 +1,142 @@
+---
+title: "GemRate Population Data: Link and Paste for Graded Cards"
+sidebarTitle: "GemRate Population"
+description: "Pull PSA, BGS, SGC, and CGC population data into your card detail panel using the two-step GemRate paste workflow for graded card research."
+---
+
+GemRate aggregates grading population data from **PSA, BGS (Beckett), SGC, and CGC** into a single API. Once you link a graded card to its GemRate record, CardVault displays a rich population breakdown right in the card detail panel — so you can see exactly how rare your specific grade is without leaving your inventory. The workflow uses a manual copy-and-paste approach against the GemRate partner API, which keeps the integration lightweight and under your control.
+
+## What the Population Panel Shows
+
+After linking a card and pasting its population data, the GemRate section of the card detail panel displays:
+
+<CardGroup cols={2}>
+  <Card title="Population at Your Grade" icon="chart-bar">
+    How many copies have been graded at the same grade as your card — the primary rarity signal.
+  </Card>
+  <Card title="Copies Graded Higher" icon="arrow-up">
+    The number of copies that received a grade above yours, giving context for where your card sits in the population pyramid.
+  </Card>
+  <Card title="Full Grade Distribution" icon="table">
+    A complete breakdown of every grade level issued by the grading company, from lowest to highest.
+  </Card>
+  <Card title="Cross-Grader Comparison" icon="scale-balanced">
+    Side-by-side population figures across graders when data is available, so you can see how one registry compares to another.
+  </Card>
+  <Card title="Autograph Split" icon="signature">
+    Where available, population figures split by autographed vs. non-autographed versions of the same card.
+  </Card>
+  <Card title="GemRate ID" icon="fingerprint">
+    The unique GemRate card identifier, displayed with a copy button for quick access in future lookups.
+  </Card>
+</CardGroup>
+
+## Supported Graders
+
+<Tabs>
+  <Tab title="PSA">
+    Full cert lookup and population data supported. Gem mint boundary is **grade 10 and above**.
+  </Tab>
+  <Tab title="BGS (Beckett)">
+    Population data supported, but cert lookup requires the **manual ID linking** workflow (see note below). Gem mint boundary is **grade 9.5** — Beckett calls 9.5 "Gem Mint," which is structurally different from PSA/SGC/CGC.
+  </Tab>
+  <Tab title="SGC">
+    Full cert lookup and population data supported. Gem mint boundary is **grade 10 and above**.
+  </Tab>
+  <Tab title="CGC / CSG">
+    Full cert lookup and population data supported. CSG cards are treated as CGC for GemRate purposes. Gem mint boundary is **grade 10 and above**.
+  </Tab>
+</Tabs>
+
+## Two-Step Paste Workflow
+
+The full workflow takes two passes against the GemRate partner portal: first to **link** the card via cert lookup, then to **load** its population data.
+
+<Steps>
+  <Step title="Open the card detail panel">
+    Navigate to your inventory and open the detail panel for any graded card. The GemRate section appears in the panel — if the card has no GemRate ID yet, you'll see the cert paste area.
+  </Step>
+  <Step title="Look up the cert on GemRate">
+    In a separate browser tab, go to **[gemrate.com/partner](https://gemrate.com/partner)**. Find the **Cert Lookup** box, enter your cert number and select the grading company, then submit the lookup.
+  </Step>
+  <Step title="Copy the cert JSON response">
+    GemRate returns a JSON object describing the card. Copy the entire JSON response from the page.
+  </Step>
+  <Step title="Paste into the cert paste area">
+    Return to CardVault and paste the copied JSON into the **cert paste area** in the GemRate section of the card detail panel. CardVault validates the response, links the card to its GemRate record, and displays the assigned **GemRate ID** with a copy button.
+  </Step>
+  <Step title="Copy the GemRate ID">
+    Click the copy button next to the GemRate ID that just appeared. You'll need this ID for the next step.
+  </Step>
+  <Step title="Request population data on GemRate">
+    Back on **[gemrate.com/partner](https://gemrate.com/partner)**, find the **Get Population for a Card** box and paste your GemRate ID, then submit.
+  </Step>
+  <Step title="Copy the population JSON response">
+    GemRate returns a population JSON object. Copy the entire response.
+  </Step>
+  <Step title="Paste into the population paste area">
+    Return to CardVault and paste the population JSON into the **population paste area**. The full grade distribution and all supporting figures render immediately in the panel.
+  </Step>
+</Steps>
+
+## Refreshing Population Data
+
+Population counts change as new cards are graded. If a card is **already linked** to GemRate (it already has a GemRate ID), you can refresh its population data without repeating the cert lookup:
+
+<Steps>
+  <Step title="Skip the cert lookup steps">
+    Because the card is already linked, you don't need to re-paste the cert response. Skip steps 2–4 above.
+  </Step>
+  <Step title="Use the existing GemRate ID">
+    The GemRate ID is already displayed in the panel — click the copy button to grab it.
+  </Step>
+  <Step title="Fetch and paste a fresh population response">
+    Go to **[gemrate.com/partner](https://gemrate.com/partner)**, paste the ID into the **Get Population for a Card** box, copy the returned JSON, and paste it into the population paste area in the panel.
+  </Step>
+</Steps>
+
+## Manual ID Linking for Beckett Cards
+
+<Warning>
+  GemRate's own cert lookup widget sends the wrong grader code for Beckett cards, so the standard cert paste workflow will not work for BGS. You must use manual ID linking instead.
+</Warning>
+
+<Steps>
+  <Step title="Find your card's GemRate ID manually">
+    Search for your card on [gemrate.com](https://gemrate.com) directly to locate its GemRate record and note the GemRate ID.
+  </Step>
+  <Step title="Open the card detail panel in CardVault">
+    Navigate to the graded Beckett card in your inventory and open its detail panel.
+  </Step>
+  <Step title="Click Link Manually">
+    In the GemRate section, click **Link Manually** and enter the GemRate ID you found.
+  </Step>
+  <Step title="Confirm the match">
+    CardVault will display GemRate's description for that ID. Verify that the player name, set, and year match your card before confirming the link.
+  </Step>
+  <Step title="Paste population data">
+    Once linked, follow steps 6–8 of the standard workflow to fetch and paste the population JSON.
+  </Step>
+</Steps>
+
+## Gem Mint Boundary Differences
+
+<Note>
+  Gem mint population figures are **not directly comparable across graders**. Beckett's gem tier starts at **9.5**, while PSA, SGC, and CGC all start at **10**. This means Beckett's gem mint percentage will structurally appear higher than the equivalent PSA or SGC figure for the same card. The population panel includes a note about this boundary difference so you're never comparing apples to oranges.
+</Note>
+
+| Grader | Gem Mint Threshold |
+|--------|--------------------|
+| PSA    | 10                 |
+| SGC    | 10                 |
+| CGC    | 10                 |
+| CSG    | 10 (treated as CGC)|
+| BGS    | **9.5**            |
+
+<Accordion title="Why does the cert paste sometimes fail validation?">
+  CardVault validates the pasted JSON against the expected GemRate cert response schema. Common causes of failure include: copying only part of the JSON response (make sure you copy from the opening `{` to the closing `}`), having extra whitespace or text before the JSON, or the cert not being found (GemRate may not have a record for that cert number yet). Double-check that the cert number and grader selection on gemrate.com match your card exactly.
+</Accordion>
+
+<Accordion title="Can I link multiple graded copies of the same card to the same GemRate ID?">
+  Yes — the GemRate ID identifies the card *type*, not your specific slab. If you own two PSA 10 copies of the same card, both can reference the same GemRate ID and will display the same population data.
+</Accordion>

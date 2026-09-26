@@ -1,0 +1,125 @@
+---
+title: "Create, Edit, and Manage Your CardVault Collections"
+sidebarTitle: "Managing"
+description: "Step-by-step guide to creating collections, adding and removing cards individually or in bulk, and working with the collection detail page."
+---
+
+The **Manage Collections** page at [/collections](http://127.0.0.1:5000/collections) is your control center for every user-created collection. From here you can create new collections, rename or delete existing ones, and navigate to each collection's detail page to add, browse, or remove cards. Bulk workflows mean you can populate a collection with dozens of cards in a single action straight from the inventory view.
+
+## Creating a Collection
+
+<Steps>
+  <Step title="Open Manage Collections">
+    Navigate to [http://127.0.0.1:5000/collections](http://127.0.0.1:5000/collections). You'll see a list of all existing collections and a form to create a new one.
+  </Step>
+  <Step title="Enter a name">
+    Type a short, descriptive name in the **Collection Name** field. This label appears in the sidebar and on all collection-related screens.
+  </Step>
+  <Step title="Add an optional description">
+    Use the **Description** field to note the collection's purpose, scope, or any other context. This is visible on the collection detail page but not in the sidebar.
+  </Step>
+  <Step title="Click Create">
+    Click the **Create** button. The new collection appears immediately in the list and in the left sidebar.
+  </Step>
+</Steps>
+
+## Adding Cards to a Collection
+
+There are two ways to add cards: one at a time through the card detail panel, or in bulk from the inventory view.
+
+### Single Card — Card Detail Panel
+
+Open any card's detail panel (click its row in the inventory or search results), then:
+
+1. Click **Add to Collection** in the panel.
+2. A modal appears listing all your collections.
+3. Select the collection you want to add the card to.
+4. Click **Add**. The card is immediately a member of that collection.
+
+<Note>
+If the card is already in a collection, that collection is shown as already selected in the modal so you won't add it twice.
+</Note>
+
+### Bulk Add — Inventory Checkboxes
+
+<Steps>
+  <Step title="Browse to the inventory view">
+    Navigate to any category, search results, or filtered inventory page where the cards you want are visible.
+  </Step>
+  <Step title="Select cards">
+    Check the checkbox on each card row you want to add. Use the **Select All** checkbox in the column header to select every card on the current page at once.
+  </Step>
+  <Step title="Open the bulk action toolbar">
+    Once at least one card is checked, the bulk action toolbar appears at the bottom of the screen. Click **Add to Collection**.
+  </Step>
+  <Step title="Choose a collection">
+    Pick the target collection from the dropdown in the toolbar.
+  </Step>
+  <Step title="Review the duplicate warning">
+    CardVault runs a dry-run check before writing anything. If any selected cards are already in the chosen collection, a warning lists the duplicates and asks you to confirm. You can proceed (duplicates are skipped) or cancel and adjust your selection.
+  </Step>
+  <Step title="Confirm">
+    Click **Confirm Add**. All eligible cards are added; duplicates are skipped silently.
+  </Step>
+</Steps>
+
+<Tip>
+Use the filter bar to narrow your inventory to a specific set, grade, or attribute before selecting all — this is the fastest way to bulk-populate a collection from a tightly defined subset of your inventory.
+</Tip>
+
+## The Collection Detail Page
+
+Clicking any collection in the sidebar or on the Manage Collections page opens its detail page. The layout shows card images, card metadata, and value at a glance, and supports both list and grid views.
+
+### Browsing and Sorting
+
+| Control | What it does |
+|---|---|
+| **List / Grid toggle** | Switch between a compact row layout and a visual card-grid with image placeholders |
+| **Sort** | Sort by card name, value, date added, or card ID |
+| **Pagination** | Navigate through large collections page by page |
+| **Search within collection** | Filter visible cards by player name, set, or any text — scoped to this collection only |
+
+### Exporting a Collection
+
+Click **Export** on the collection detail page to download the current collection as a CSV. The export includes card ID, player name, set, year, condition, and current value.
+
+## Removing Cards from a Collection
+
+### Single Card
+
+On the collection detail page, locate the card you want to remove and click the **trash icon** on its row. An inline confirmation prompt appears — click **Confirm** to remove the card from the collection. The card remains in your inventory; only the collection membership is removed.
+
+### Bulk Remove
+
+<Steps>
+  <Step title="Select cards on the collection detail page">
+    Check the checkboxes for the cards you want to remove. Use **Select All** to select the entire current page.
+  </Step>
+  <Step title="Click Remove from Collection">
+    The bulk toolbar appears. Click **Remove from Collection**.
+  </Step>
+  <Step title="Confirm">
+    A confirmation dialog shows how many cards will be removed. Click **Confirm** to proceed. Removed cards stay in your inventory.
+  </Step>
+</Steps>
+
+<Warning>
+Removing a card from a collection is instant and cannot be undone from the UI. If you remove cards accidentally, you'll need to re-add them manually or via bulk add.
+</Warning>
+
+## Renaming and Deleting Collections
+
+Both actions are available on the **Manage Collections** page ([/collections](http://127.0.0.1:5000/collections)).
+
+### Rename
+
+Click the **edit (pencil) icon** next to a collection name. Update the name and/or description in the inline form, then click **Save**.
+
+### Delete
+
+Click the **Delete** button next to the collection. A confirmation dialog warns you that all card memberships in this collection will be removed (the cards themselves are unaffected). Click **Confirm Delete** to proceed.
+
+<Note>
+The **Dirk Nowitzki Personal Collection** is a built-in, hardcoded collection and does not have rename or delete controls.
+</Note>

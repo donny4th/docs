@@ -1,0 +1,101 @@
+---
+title: "Hall of Fame Players: Managing the HOF Badge Lists"
+sidebarTitle: "HOF Players"
+description: "Manage the 1,294-player Hall of Fame list that drives the HOF badge on card grid tiles and detail panels across Basketball, Baseball, Football, and Hockey."
+---
+
+The Hall of Fame player list is the engine behind the **HOF badge** you see on card grid tiles and in the card detail panel. When CardVault processes an import, it compares each card's player name against this list for the matching sport — any card whose player is on the list gets the HOF flag, which causes the gold HOF icon to appear wherever that card is displayed. Keeping this list accurate ensures your HOF cards are always correctly flagged without any manual editing.
+
+## What the HOF Flag Does
+
+Every card in CardVault carries a Hall of Fame flag. When a card is flagged, a **HOF** badge appears:
+
+<CardGroup cols={2}>
+  <Card title="Card Grid Tiles" icon="grid-2">
+    A gold HOF icon overlays the card thumbnail so you can spot Hall of Fame cards at a glance while browsing your inventory.
+  </Card>
+  <Card title="Card Detail Panel" icon="id-card">
+    The HOF badge is displayed prominently in the card's attribute section alongside autograph, rookie, and graded indicators.
+  </Card>
+</CardGroup>
+
+The flag is **set automatically during import** — you never need to edit it directly on individual cards.
+
+## Opening the HOF Players Page
+
+The HOF Players page lives under **Quick Actions** in the main navigation. Navigate to:
+
+```
+http://127.0.0.1:5000/hof-players
+```
+
+The page is organized into four sport tabs — **Basketball**, **Baseball**, **Football**, and **Hockey** — each showing the full alphabetical list of HOF players for that sport.
+
+## Sport Tabs
+
+<Tabs>
+  <Tab title="Basketball">
+    Contains NBA and basketball Hall of Fame inductees. Cards in the Basketball category (IDs `1xxxxxx`) and the Dirk Nowitzki PC (IDs `6xxxxxx`) are matched against this tab's list.
+  </Tab>
+  <Tab title="Baseball">
+    Contains MLB and baseball Hall of Fame inductees. Cards in the Baseball category (IDs `4xxxxxx`) are matched here.
+  </Tab>
+  <Tab title="Football">
+    Contains NFL and football Hall of Fame inductees. Cards in the Football category (IDs `3xxxxxx`) are matched here.
+  </Tab>
+  <Tab title="Hockey">
+    Contains NHL and hockey Hall of Fame inductees. Cards in the Hockey category (IDs `2xxxxxx`) are matched here.
+  </Tab>
+</Tabs>
+
+<Info>
+  Only these four sports have Hall of Fame tracking. Categories like Soccer, Non-Sport, and Multi-Sport do not have HOF lists.
+</Info>
+
+## Adding a Player
+
+<Steps>
+  <Step title="Select the correct sport tab">
+    Click the **Basketball**, **Baseball**, **Football**, or **Hockey** tab to make sure you're adding the player to the right sport's list. Switching tabs automatically pre-selects that sport in the Add Player dropdown, so you don't need to set it manually.
+  </Step>
+  <Step title="Type the player's name">
+    Enter the player's name in the input field exactly as it appears on your cards. Name matching during import is case-insensitive, but consistent formatting (e.g., `"LeBron James"` rather than `"Lebron james"`) keeps your data clean.
+  </Step>
+  <Step title="Click Add">
+    Click the **Add** button. The player appears immediately in the alphabetical list for that sport.
+  </Step>
+</Steps>
+
+<Tip>
+  Use the same name format that appears in your Excel workbooks. If a card's player field reads `"Magic Johnson"`, add `"Magic Johnson"` — not `"Earvin Johnson"` — so the import match succeeds.
+</Tip>
+
+## Deleting a Player
+
+To remove a player from the list, find their entry in the appropriate sport tab and click the **Delete** (trash) icon next to their name. The deletion is immediate. 
+
+<Warning>
+  Deleting a player does not automatically remove the HOF flag from existing cards. Those cards retain the badge until the next import reconciles the flag. Run an import for the affected category after deleting a player to clear the badge from any previously matched cards.
+</Warning>
+
+## How the Flag Is Applied During Import
+
+When you import a workbook for a sport category, CardVault runs a matching pass over every card in that category:
+
+1. For each card, CardVault checks whether the card's **player name** appears in the HOF list for that sport.
+2. If a match is found, the card is flagged as a Hall of Famer and the HOF badge becomes visible.
+3. If no match is found, the HOF flag is cleared.
+
+This means the HOF flag is always reconciled during import — adding or removing players from the list takes effect the next time you import that sport's workbook.
+
+<Note>
+  After adding or removing players from the HOF list, run a fresh import for the affected category to propagate the updated HOF flags to all matching cards. Without an import, existing cards retain their previous flag values.
+</Note>
+
+## Initial Seed Data
+
+CardVault was pre-loaded with **1,294 Hall of Fame players** sourced from the dedicated HOF sheets in the original Excel workbooks. This baseline covers the major inductees across all four sports at the time of initial setup. Use the Add workflow above to keep the list current as new classes are inducted.
+
+<Accordion title="Why aren't my HOF cards showing the badge after I added a player?">
+  The HOF badge is applied during import, not in real time. After adding a new player to the list, run an import for the affected sport category. CardVault will re-evaluate every card in that category and flag any card whose player name now matches the updated list.
+</Accordion>

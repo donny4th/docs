@@ -1,0 +1,94 @@
+---
+title: "eBay Price Lookup: Pricing Cards from Sold Listings"
+sidebarTitle: "eBay Lookup"
+description: "Fetch market-accurate prices from real eBay sold listings. CardVault builds a targeted query, removes outliers, and saves the result automatically."
+---
+
+CardVault connects to real eBay sold-price data through the Apify actor `caffein.dev~ebay-sold-listings`, letting you fetch market-accurate values for any card directly from the card detail panel. The lookup builds a targeted search query, retrieves recent sales, applies an outlier-removal formula, and saves the result — all without leaving the app.
+
+## Triggering a Lookup
+
+Open any card's detail panel and click the **eBay Lookup** button. CardVault assembles a search query from the card's stored data, sends it to Apify, and returns a suggested price. You can accept the suggested value or discard it and keep the current price.
+
+When a price is saved this way, the card's `value_ind` is set to **2** (eBay lookup), so you can always tell how a value was sourced.
+
+## Search Modes
+
+CardVault supports three search modes that control how grading information is included in the query. Choose the mode that best matches the card you're pricing.
+
+<CardGroup cols={3}>
+  <Card title="Raw" icon="tag">
+    No grader or grade appended. Use this for ungraded cards or when you want broad raw-card comps.
+  </Card>
+  <Card title="Specific" icon="certificate">
+    Appends both the grader abbreviation **and** the numeric grade (e.g., `PSA 10`). Best for graded cards where an exact grade match matters.
+  </Card>
+  <Card title="Any" icon="magnifying-glass">
+    Appends the grader abbreviation only, without a specific grade. Useful when you want all slabs from a given grader regardless of grade.
+  </Card>
+</CardGroup>
+
+## How the Query Is Built
+
+CardVault assembles the eBay search string in a fixed sequence so results stay relevant and noise is minimized.
+
+<Steps>
+  <Step title="Build the base query">
+    Start with: **year** + **brand** + **card_type** (cleaned of special characters) + **card_num** (digits only, leading zeros stripped) + **player name**.
+  </Step>
+  <Step title="Append grading info">
+    Based on the selected search mode, append nothing (Raw), the grader + grade (Specific), or the grader alone (Any).
+  </Step>
+  <Step title="Handle serial-numbered cards">
+    For cards with a known print run, append **/{print_run}** to the query (e.g., `/25`). For individually serial-numbered cards (those with a unique serial number stamped on the card), the card type term is **omitted** from the base query and **all exclusion keywords are skipped entirely** — the serial notation already narrows results precisely enough that exclusions would only remove valid comps.
+  </Step>
+  <Step title="Append autograph marker">
+    If the card is flagged as an autograph, append **" auto"** to the query.
+  </Step>
+  <Step title="Append exclusion keywords">
+    Each active exclusion keyword is appended as **-keyword** at the end of the query string, telling eBay to omit listings containing that term.
+  </Step>
+</Steps>
+
+<Note>
+  Exclusion keywords are applied globally **unless** the card's own description already contains the stem of that keyword. For example, if "reprint" is an exclusion keyword but the card's description includes "reprint," the exclusion is suppressed so you don't accidentally filter out legitimate comps for that specific card.
+</Note>
+
+## Pricing Formula
+
+Once Apify returns results, CardVault sorts all sold listings by **date descending** and applies the following formula:
+
+1. **Remove outliers** — drop the single highest-priced and single lowest-priced result.
+2. **Average the three most recent** — calculate the mean of the three most recent remaining sales.
+3. **Fallback** — if fewer than three results remain after outlier removal, use the single most recent result as-is.
+
+### Value Rounding
+
+The calculated price is rounded to a clean display value based on magnitude:
+
+| Price Range | Rounded To |
+|---|---|
+| Under $10.00 | Nearest $0.50 |
+| $10.00 – $99.99 | Nearest $1.00 |
+| $100.00 and above | Nearest $10.00 |
+
+This keeps your inventory values tidy without sacrificing meaningful precision at any price tier.
+
+## Saving the Price
+
+After reviewing the suggested price, click **Save** in the detail panel to apply it. CardVault writes the rounded value to the card's `value` field and sets `value_ind = 2` to record that this price came from an eBay lookup.
+
+<Tip>
+  After saving prices from a batch of eBay lookups, run a **manual value capture** on the Import page to record those changes in the value history table. This ensures your dashboard chart and monthly reports reflect the updated prices. See [Tracking Card Value Changes Over Time](/pricing/value-history) for details.
+</Tip>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Default Value Rules" icon="sliders" href="/pricing/default-value-rules">
+    Apply bulk pricing to groups of cards using condition-based rules.
+  </Card>
+  <Card title="eBay Exclusion Keywords" icon="ban" href="/configuration/ebay-exclusions">
+    Manage the keywords that are suppressed from eBay search queries.
+  </Card>
+</CardGroup>

@@ -1,0 +1,100 @@
+---
+title: "Building Your Card Image Library with the Image Queue"
+sidebarTitle: "Image Queue"
+description: "Walk through your collection set by set, pasting front and back card images one card type at a time to build complete image coverage fast."
+---
+
+The Image Queue gives you a structured, distraction-free workflow for building out your card image library. Rather than hunting down images card by card, the queue presents one **card type** at a time — walking you through every set that still needs coverage — so you can make steady, measurable progress across your entire 56,000+ card collection.
+
+## How the Queue Works
+
+The Image Queue operates on **card types**, not individual copies. A card type is identified by its `uniq_id` and category combination — so if you own three copies of the same Luka Dončić rookie, pasting one image pair covers all three at once. This makes the workflow dramatically faster for collectors with duplicate cards.
+
+The queue groups card types **by set**, presenting all unimaged cards within a set before moving to the next one. A **set** is defined by the five-column combination of category, brand, release year, set name, and card type — so two products that share a name but differ in category or brand are treated as separate sets. A progress indicator shows **N of M saved** so you always know where you stand within the current set.
+
+<Note>
+  CardVault never contacts external sites on your behalf. You find and copy images yourself using your own browser — CardVault only receives what you paste with Ctrl+V.
+</Note>
+
+## Opening the Image Queue
+
+Navigate to the Image Queue from the **Quick Actions** sidebar on any page. The queue automatically loads the first card type that is missing a front image, ready for input.
+
+## The Paste Workflow
+
+<Steps>
+  <Step title="Open the Image Queue">
+    Click **Image Queue** in the Quick Actions sidebar. CardVault loads the first unimaged card type, showing the card's details and two empty image slots — front and back.
+  </Step>
+  <Step title="Find and copy the card image">
+    In a separate browser tab, locate the card image on [TCDB](https://www.tcdb.com), eBay, or any other card reference site. Right-click the image and choose **Copy Image** (or use your OS copy shortcut).
+  </Step>
+  <Step title="Paste into CardVault">
+    Return to the CardVault tab and press **Ctrl+V** anywhere on the page. The pasted image fills the **front slot** first. Press Ctrl+V again with a second image to fill the **back slot**. You do not need to click inside any input field — the paste listener is global.
+  </Step>
+  <Step title="Crop the image (optional)">
+    If the image needs trimming, click the **✂ crop button** beneath the filled slot to open the crop tool. Adjust the crop handles to align with the card borders, then confirm. See [Crop Tool](#crop-tool) below for full details.
+  </Step>
+  <Step title="Review multi-copy behavior">
+    If you own more than one copy of this card type, the checkbox **"Use these images for all N copies"** appears and is checked by default. Leave it checked to apply the same front/back images to every copy simultaneously. Uncheck it only if you need different images for a specific copy.
+  </Step>
+  <Step title="Save and advance">
+    Click **Save & Next** or press **Ctrl+Enter**. CardVault saves the images and immediately loads the next unimaged card type in the set. The progress counter updates to reflect the save.
+  </Step>
+</Steps>
+
+## Navigation Controls
+
+Not every card in the queue needs an image right now. Two navigation actions let you control your pace without losing your place.
+
+<CardGroup cols={2}>
+  <Card title="Skip Card" icon="forward">
+    Moves past the current card type without saving. The card remains in the queue and will reappear the next time you open it.
+  </Card>
+  <Card title="Next Set" icon="layer-group">
+    Skips all remaining unimaged cards in the current set and jumps to the first card of the next set within the same category. Useful when you don't have images for a particular product line handy.
+  </Card>
+</CardGroup>
+
+## Save Front Only & Next
+
+If you have a front image but no back image readily available, click **Save Front Only & Next**. CardVault saves the front image, marks the card as imaged, and advances to the next card — the saved card will no longer appear in the main queue pass. Back images can be added later from the [card detail panel](/images/uploading-images).
+
+## Jumping to a Specific Set
+
+<Tip>
+  Use the **set picker** to jump directly to any set you want to work on, rather than working through the queue in default order. The picker is a two-step selector: choose the **category** first (e.g., Basketball, Hockey), then choose the **set** from the filtered list. This is especially useful when you've just received cards from a specific product line and want to image that set first.
+</Tip>
+
+## Progress Display
+
+The queue header shows **N of M saved** for the current set, where N is the number of card types with at least a front image and M is the total card types in the set. This count updates in real time as you save, giving you an at-a-glance measure of set completion.
+
+## Crop Tool
+
+When you click the ✂ button after pasting an image, the crop tool opens as an overlay with the following options:
+
+<AccordionGroup>
+  <Accordion title="Orientation modes">
+    The crop tool supports two locked aspect ratios matching standard trading card dimensions:
+
+    | Mode | Aspect Ratio | Use When |
+    |---|---|---|
+    | **Portrait** | 2.5 : 3.5 | Standard upright card orientation |
+    | **Landscape** | 3.5 : 2.5 | Horizontal card design |
+
+    The tool **defaults to the orientation that matches the pasted image** — a tall image opens in Portrait mode; a wide image opens in Landscape mode. You can switch between Portrait and Landscape mid-session without losing the pasted image.
+  </Accordion>
+  <Accordion title="Free-form mode">
+    Toggle **Free-form** to remove the aspect ratio lock entirely. This lets you crop to any arbitrary rectangle, which can be useful for non-standard card shapes or when correcting a heavily skewed scan. Free-form crops are stored at whatever dimensions you set.
+  </Accordion>
+  <Accordion title="Pixel dimension readout">
+    A live **pixel dimension readout** beneath the crop area shows the exact output size as you drag the handles. 
+
+    <Warning>
+      If either dimension drops below **200 px**, the readout turns red as a warning. Very small images display poorly in the card detail panel and may produce low-quality prints. Aim for at least 400 px on the short edge for best results.
+    </Warning>
+  </Accordion>
+</AccordionGroup>
+
+After adjusting the crop, click **Apply** to confirm. The cropped result replaces the raw paste in the image slot. You can re-open the crop tool and adjust again before saving.

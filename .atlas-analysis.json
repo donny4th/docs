@@ -1,0 +1,110 @@
+{
+  "projectType": "saas",
+  "projectName": "CardVault",
+  "projectDescription": "A personal trading card inventory management app for organizing, pricing, and analyzing a large card collection — with features for browsing, collections, eBay pricing, GemRate population data, image management, and AI-powered insights.",
+  "theme": "almond",
+  "primaryColor": "#ef7025",
+  "lightColor": "#eec9bc",
+  "darkColor": "#4fa1ab",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "User Guide",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "importing-inventory"
+            ]
+          },
+          {
+            "group": "Browsing & Search",
+            "pages": [
+              "browsing/inventory",
+              "browsing/search-and-filters",
+              "browsing/card-detail-panel"
+            ]
+          },
+          {
+            "group": "Collections",
+            "pages": [
+              "collections/overview",
+              "collections/managing-collections",
+              "collections/goals"
+            ]
+          },
+          {
+            "group": "Pricing Tools",
+            "pages": [
+              "pricing/ebay-price-lookup",
+              "pricing/default-value-rules",
+              "pricing/value-history"
+            ]
+          },
+          {
+            "group": "Images",
+            "pages": [
+              "images/image-queue",
+              "images/uploading-images"
+            ]
+          },
+          {
+            "group": "Analytics & Reports",
+            "pages": [
+              "analytics/dashboard",
+              "analytics/top-100",
+              "analytics/cardvault-50",
+              "analytics/monthly-reports",
+              "analytics/ai-audit"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/hof-players",
+              "configuration/gemrate-population",
+              "configuration/ebay-exclusions"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Import inventory from Excel workbooks across 8 sports/categories",
+    "Browse, search, and filter 56,000+ cards with list and grid views",
+    "Curate named collections and track collection goals",
+    "eBay price lookup via Apify for real market pricing",
+    "Default value rules engine for bulk pricing",
+    "Card value history tracking with delta-capture storage",
+    "Image Queue for systematically sourcing and attaching card scans",
+    "GemRate population data integration for graded cards",
+    "CardVault 50 custom market index tracker",
+    "Top 100 Billboard-style showcase of highest-value cards",
+    "AI-powered data quality audit (13 checks + Claude analysis)",
+    "Monthly Collection Reports with AI-generated narrative",
+    "Hall of Fame player tagging",
+    "Dark and light theme support"
+  ],
+  "publicApiSurface": [
+    "GET / — All cards inventory",
+    "GET /category/<category> — Category-filtered inventory",
+    "GET /search?q=<query> — Search cards",
+    "GET /collection/<id> — Collection detail",
+    "GET /collections — Manage collections",
+    "GET /dashboard — Analytics dashboard",
+    "GET /top100 — Top 100 Showcase",
+    "GET /index-tracker — CardVault 50 Index Tracker",
+    "GET /ai-audit — AI Audit page",
+    "GET /monthly-reports — Monthly Reports list",
+    "GET /import — Import Inventory page",
+    "GET /image-queue — Image Queue",
+    "GET /goals — Collection Goals",
+    "POST /api/add_to_collection — Add card to collection",
+    "POST /api/bulk_add_to_collection — Bulk add cards to collection",
+    "POST /price-lookup/search — Run eBay price lookup",
+    "POST /price-lookup/save/<card_id> — Save looked-up price"
+  ]
+}

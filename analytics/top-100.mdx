@@ -1,0 +1,84 @@
+---
+title: "Top 100 Most Valuable Cards in Your Collection Today"
+sidebarTitle: "Top 100"
+description: "A billboard-style showcase of your 100 highest-value cards, ranked by value with hero layout for #1, full badge display, and front/back thumbnails."
+---
+
+The Top 100 page is a showcase — a ranked, visual leaderboard of the hundred most valuable cards currently in your collection. It's designed to be read like a chart, with the most eye-catching real estate given to the card sitting at number one. Navigate there by clicking **Analytics → Top 100** in the top navigation bar.
+
+---
+
+## How Cards Are Ranked
+
+Cards are ordered by **value descending**. When two cards share the exact same value, `card_id` ascending is used as a tiebreaker, so the ranking is always deterministic. The list reflects whatever values are stored in your database at the moment you load the page — no special filtering or category restriction is applied.
+
+<Note>
+  Cards with no value (null or zero) are not eligible to appear in the Top 100. Make sure your high-value cards have a value assigned — either via eBay lookup, Card Ladder, or a manual estimate — so they surface correctly.
+</Note>
+
+---
+
+## Billboard-Style Layout
+
+The Top 100 uses a two-tier visual hierarchy to give the top card the attention it deserves.
+
+### Entry #1 — Hero Row
+
+The card ranked number one receives a full-width **hero row** at the top of the page. It is displayed larger than all other entries, making it immediately clear which card leads your collection in value.
+
+### Entries #2–100 — Uniform Rows
+
+Every other card occupies an identical, compact row. All 99 rows use the same height and layout so you can scan the list quickly without visual noise.
+
+---
+
+## Row Anatomy
+
+Each row — hero or uniform — contains the same information elements:
+
+<CardGroup cols={2}>
+  <Card title="Ghost Rank Number" icon="hashtag">
+    A large, lightly rendered rank number sits in the leftmost column. It reads like a billboard chart position — prominent but not competing with the card content.
+  </Card>
+  <Card title="Front + Back Thumbnails" icon="images">
+    Both the front and back card images are shown side by side. If no image has been attached yet, a placeholder is rendered in its place.
+  </Card>
+  <Card title="Badges" icon="tag">
+    All applicable badges render inline: **RC** (rookie), **MEM** (memorabilia/relic), **AU** (autograph), **SN** (serial numbered), **PR** (print run known), and the graded card's **grade** label (e.g., PSA 10).
+  </Card>
+  <Card title="Value — Right-Aligned" icon="dollar-sign">
+    The card's current value is right-aligned at the far end of the row, making it easy to scan the dollar column as you scroll.
+  </Card>
+</CardGroup>
+
+---
+
+## Page Behavior
+
+<CardGroup cols={2}>
+  <Card title="No Slide-Out Panel" icon="panel-left-close">
+    Clicking a row does not open a card detail panel. The Top 100 is a read-only showcase — use the main **Browse** view if you need to edit a card.
+  </Card>
+  <Card title="No Pagination" icon="list">
+    All 100 cards load on a single scrollable page. There are no pages to navigate between.
+  </Card>
+</CardGroup>
+
+---
+
+## Top 100 Indicators Elsewhere in CardVault
+
+A card's membership in the Top 100 is surfaced in two other places:
+
+<CardGroup cols={2}>
+  <Card title="Image Queue Badge" icon="camera">
+    Cards currently in the Top 100 display a special badge in the Image Queue, signaling that adding images to these cards has the highest visual impact on your showcase.
+  </Card>
+  <Card title="Dashboard" icon="gauge">
+    The Analytics Dashboard references the Top 100 in the context of overall collection highlights.
+  </Card>
+</CardGroup>
+
+<Tip>
+  After a large import or a round of eBay price lookups, reload the Top 100 page to see if any newly priced cards have entered or reshuffled the leaderboard.
+</Tip>

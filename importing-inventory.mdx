@@ -1,0 +1,111 @@
+---
+title: "Importing and Updating Your Card Inventory"
+sidebarTitle: "Importing"
+description: "Upload Excel workbooks to sync your CardVault inventory, choose value reconciliation modes, and review import history across all 8 sports categories."
+---
+
+CardVault's inventory is driven by `.xlsm` Excel workbooks — one per sport or category. Importing a workbook wipes the existing cards for that category and replaces them with the data from your file. Because CardVault may have prices, images, and other enriched data that don't exist in the Excel file, the import process includes a **value reconciliation** step that decides which price to keep for each card.
+
+<Warning>
+  Importing a workbook **permanently deletes all existing cards** for the selected category before inserting the incoming data. This is a full wipe-and-reimport — not a diff. Always confirm you're uploading the correct, up-to-date file for the right category before proceeding. CardVault's value reconciliation logic protects enriched pricing data (see below), but card records themselves are fully replaced.
+</Warning>
+
+## Workbook Categories
+
+Use the **Workbook** dropdown on the Import page to select which sport or category your file represents. The selection determines exactly which cards are deleted before the import runs.
+
+| Workbook Selection | Cards Wiped Before Import |
+|---|---|
+| Baseball | All Baseball cards |
+| Basketball (excluding Dirk) | All Basketball cards, **excluding** card IDs 6000000–6999999 |
+| Dirk Nowitzki PC | card IDs 6000000–6999999 only |
+| Football | All Football cards |
+| Hockey | All Hockey cards |
+| Soccer | All Soccer cards |
+| Non-Sport | All Non-Sport cards |
+| Multi-Sport / Other | Golf, Racing, Tennis, Wrestling, and Multi-Sport cards |
+
+<Note>
+  The **Dirk Nowitzki PC** workbook and **Basketball (excluding Dirk)** workbook are intentionally separate. This lets you update your main Basketball inventory without disturbing your Dirk PC, and vice versa. Both belong to the Basketball sport but use non-overlapping card ID ranges.
+</Note>
+
+## Import Process
+
+<Steps>
+  <Step title="Navigate to the Import page">
+    Go to [http://127.0.0.1:5000/import](http://127.0.0.1:5000/import) or click **Import** in the navigation bar.
+  </Step>
+
+  <Step title="Select the workbook type">
+    Use the **Workbook** dropdown to choose the category that matches your `.xlsm` file. Choosing the wrong category will delete the wrong set of cards, so double-check before proceeding.
+  </Step>
+
+  <Step title="Choose a value reconciliation mode">
+    Select one of the three reconciliation modes (described in detail below) to control how CardVault handles price conflicts between the incoming file and the values already stored in CardVault:
+
+    - **Smart Merge** *(recommended)* — Preserves enriched values (eBay lookups, default rules) and uses the freshest data available
+    - **File Always Wins** — The incoming workbook value is used for every card, no exceptions
+    - **App Always Wins** — The stored CardVault value is kept for every card, no exceptions
+  </Step>
+
+  <Step title="Select your .xlsm file">
+    Click **Choose File** and select the correct `.xlsm` workbook from your machine.
+  </Step>
+
+  <Step title="Click Import">
+    Click the **Import** button. CardVault will:
+
+    1. Delete all existing cards in the selected category
+    2. Insert all card rows from the workbook
+    3. Apply the value reconciliation logic to resolve price conflicts
+    4. Record the import in Import History
+  </Step>
+
+  <Step title="Review Import History">
+    Scroll down to the **Import History** section after the import completes. Each entry shows the workbook type, timestamp, and number of cards imported. Confirm the card count looks correct before navigating away.
+  </Step>
+</Steps>
+
+## Value Reconciliation Modes
+
+CardVault records how every card's price was determined, using one of four value sources:
+
+| Value Source | How the price was set |
+|---|---|
+| **Estimated** | A rough estimate (lowest confidence) |
+| **Card Ladder** | A Card Ladder market price |
+| **eBay Lookup** | A real eBay sold-price lookup via Apify |
+| **Default Rule** | A price applied by an active Default Value Rule |
+
+eBay lookups and Default Rule prices represent enriched data that took effort to obtain and are generally more accurate than what the Excel workbook contains. The reconciliation modes let you control whether that enriched data is preserved.
+
+### Smart Merge (Recommended)
+
+Smart Merge evaluates each card individually and keeps whichever value is considered higher quality. The priority logic is:
+
+| Incoming (Workbook) Value Source | Stored (App) Value Source | Result |
+|---|---|---|
+| Any | eBay Lookup | **Keep stored** — eBay Lookup is always protected |
+| Any | Default Rule | **Keep stored** — Default Rule is always protected |
+| Card Ladder | Card Ladder | **Use incoming** — Fresh Card Ladder beats old Card Ladder |
+| Card Ladder | Estimated | **Use incoming** — Card Ladder beats an estimate |
+| Estimated | Card Ladder | **Keep stored** — Card Ladder beats an estimate |
+| Estimated | Estimated | **Use incoming** — Replace old estimate with new estimate |
+
+In plain terms: **eBay Lookup and Default Rule values are never overwritten by an import**. Fresh Card Ladder data from the workbook replaces older Card Ladder data and all estimates. Estimates are always the lowest priority.
+
+### File Always Wins
+
+Every card's value and value source are taken directly from the incoming workbook. This will overwrite any eBay lookups or default rule prices you've accumulated in CardVault. Use this only when you're confident the workbook contains your best available prices.
+
+### App Always Wins
+
+Every card retains the value currently stored in CardVault, regardless of what the workbook contains. This is useful when you've done extensive eBay lookups or applied default rules and want to refresh card metadata (player, set, year, etc.) without disturbing any pricing work.
+
+## Manual Value Capture
+
+After an import, you can manually trigger a value re-evaluation from the Import page. This re-applies any active **Default Value Rules** to cards that currently carry only an estimated value, promoting them to a Default Rule price without requiring a new import. This is useful after you've set up or modified your default rules and want them applied to the freshly imported data.
+
+<Tip>
+  Run the **AI Data Audit** after a large import to catch data quality issues — missing years, duplicate card IDs, inconsistent player names, and more. See [AI Audit](/analytics/ai-audit) for details.
+</Tip>

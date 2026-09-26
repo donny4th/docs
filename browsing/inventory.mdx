@@ -1,0 +1,120 @@
+---
+title: "Browsing and Navigating Your Full CardVault Inventory"
+sidebarTitle: "Inventory"
+description: "Navigate CardVault's full inventory by category or all at once, toggle views, sort columns, paginate, and export filtered card data to Excel."
+---
+
+CardVault's inventory views are the heart of your collection management. Whether you want a bird's-eye view of all 56,000+ cards or a focused look at a single sport, every card is reachable within a few clicks from the sidebar. This page covers how the navigation is organized, how to switch between views, sort and page through cards, and export data when you need it.
+
+## Sidebar Navigation
+
+The left sidebar is divided into four collapsible sections. Each section is persistent — CardVault remembers which sections you have expanded across page loads.
+
+<CardGroup cols={2}>
+  <Card title="QUICK ACTIONS" icon="bolt">
+    Top-level shortcuts to high-frequency tasks:
+    - **Goals** — view and track collection milestones
+    - **Manage Collections** — create, edit, or delete curated collections
+    - **Import Inventory** — upload a `.xlsm` workbook to sync cards
+    - **Image Queue** — work through cards that still need scans
+    - **HOF Players** — manage the Hall of Fame player list
+  </Card>
+  <Card title="INVENTORY" icon="layer-group">
+    Collapsible section with:
+    - **All Cards** — every card across all categories
+    - A dynamic link for each active category (Basketball, Hockey, Football, Baseball, Soccer, Dirk Nowitzki PC, Non-Sport, Multi-Sport, and more)
+  </Card>
+  <Card title="COLLECTIONS" icon="star">
+    Collapsible section with:
+    - **Dirk Nowitzki** — hardcoded personal collection (card IDs 6000000–6999999)
+    - Any user-created collections, listed below
+  </Card>
+  <Card title="ANALYTICS" icon="chart-line">
+    Collapsible section with:
+    - Dashboard, Top 100, CardVault 50, AI Audit, Monthly Reports
+    - Import History, eBay Exclusions, Default Values
+  </Card>
+</CardGroup>
+
+## Browsing All Cards vs. by Category
+
+Clicking **All Cards** in the INVENTORY section loads every card in the database, regardless of sport or category. This is the broadest possible view — useful for cross-category searches and bulk exports.
+
+Clicking any individual category link (e.g., **Basketball** or **Baseball**) scopes the inventory to that category only. The page title and card count update to reflect the active filter.
+
+### The Exclude Dirk Toggle (Basketball)
+
+When you browse the **Basketball** category, an **Exclude Dirk** toggle appears near the top of the page. Dirk Nowitzki cards are stored under the Basketball category but also belong to the dedicated Dirk Nowitzki PC collection (card IDs in the 6000000–6999999 range). Enabling **Exclude Dirk** hides those cards from the Basketball view so you can focus on the rest of your basketball inventory without overlap.
+
+<Note>
+  The Dirk Nowitzki PC is also accessible directly via the **Dirk Nowitzki** link under the COLLECTIONS section, which always shows the full Dirk collection regardless of the toggle.
+</Note>
+
+## List View vs. Grid View
+
+You can display cards in either a compact **list** (table rows) or a visual **grid** (card tiles with images). The toggle button sits in the top-right area of the inventory toolbar.
+
+- **List view** shows card description, card number, value, and key badges in a dense table — best for scanning large sets or sorting by column.
+- **Grid view** shows a card tile with the front image (if available), card description, and value badge — best for visually browsing by image.
+
+The active view preference is stored as a **cookie**, so your choice persists across page loads and browser sessions. The view is also reflected as a **URL parameter** (`view=list` or `view=grid`), which means you can bookmark or share a direct link to a specific view.
+
+## Sorting Columns
+
+In list view, column headers are clickable to sort the inventory. Available sort columns include:
+
+| Column | Description |
+|---|---|
+| **Card Description** | Alphabetical sort by the full card description string |
+| **Card Number** | Numeric sort by the card's set number |
+| **Value** | Sort by current card value (highest or lowest first) |
+| **Year** | Sort by card year |
+| **Grade** | Sort by grader grade, if applicable |
+
+Click a column header once to sort ascending; click again to sort descending. The active sort column and direction are preserved across pagination.
+
+## Card Description Format
+
+Every card in CardVault has a structured description assembled from its database fields:
+
+```
+{year} {brand} {card_type} #{card_num} {player}
+```
+
+For example: `2022 Panini Prizm Base #55 Luguentz Dort`
+
+After the core description, optional **badges** are appended to indicate special attributes:
+
+| Badge | Meaning |
+|---|---|
+| `SN{print_run}` | Card is serial numbered — individually stamped with a number (e.g., `SN99`) |
+| `PR{print_run}` | Print run quantity is known, but card is **not** individually stamped with a serial number |
+| `RC` | Rookie card |
+| `MEM` | Memorabilia / relic card |
+| `AU` | Autographed card |
+| `{Grader}/{Grade}` | Graded card, e.g. `PSA/10` or `BGS/9.5` |
+
+<Tip>
+  **SN vs. PR badges:** Both badges show a print run number, but they mean different things. **SN** (Serial Numbered) means the card itself has a stamped serial number — you can see the number physically on the card (e.g., `42/99`). **PR** (Print Run) means the print run quantity is documented but the card is not individually stamped. Use the **Serial Numbered** filter in the filter panel to find only truly numbered cards (SN), not PR cards.
+</Tip>
+
+## Pagination
+
+CardVault displays **100 cards per page**. Navigation controls at the bottom of the list let you move to the next or previous page, or jump to a specific page number. The current page, total card count, and total pages are shown alongside the pagination controls.
+
+Sorting and filtering selections are preserved as you move between pages — you won't lose your active filters or sort order when paginating.
+
+## Exporting Cards to Excel
+
+Two export buttons appear in the inventory toolbar:
+
+<CardGroup cols={2}>
+  <Card title="Export Current View" icon="filter">
+    Downloads an Excel file containing only the cards that match your current search query and active filters. Use this to export a focused subset — for example, all graded basketball rookies.
+  </Card>
+  <Card title="Export All Cards" icon="table">
+    Downloads an Excel file of every card in the current category (or all categories if you are in All Cards view), ignoring any active filters. Use this for a full category backup or offline analysis.
+  </Card>
+</CardGroup>
+
+Both exports produce a `.xlsx` file with columns matching the inventory table, including card description, value, value source, grader/grade, and all badge fields.

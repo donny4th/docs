@@ -1,0 +1,100 @@
+---
+title: "CardVault 50: Build and Track a Custom Collection Index"
+sidebarTitle: "CardVault 50"
+description: "Build a personal 50-card index normalized to 100 at inception — like a stock market index for your collection — and track it over time with snapshots."
+---
+
+The CardVault 50 is a custom index tracker that works like a stock market index for your collection. You pick up to 50 cards, CardVault normalizes their combined value to **100 points** at the moment of your first snapshot, and every subsequent snapshot shows you whether your chosen cards have collectively risen or fallen from that baseline. Access it via **Analytics → CardVault 50**.
+
+---
+
+## How the Index Works
+
+The CardVault 50 uses a **divisor methodology** — the same mechanism major stock indexes use to stay continuous across component changes.
+
+### Initial Snapshot
+
+When you take your very first snapshot, CardVault calculates a divisor:
+
+```
+divisor = total_value_of_all_50_cards / 100
+```
+
+From that point on, the index value is always:
+
+```
+index_value = total_value_of_all_50_cards / divisor
+```
+
+Because the divisor is set so that the initial total equals 100, the index opens at exactly **100.00**.
+
+<Note>
+  The CardVault 50 KPI tile on the Dashboard shows **—** (an em dash) until you have taken at least one snapshot. The index has no value until there is a reference point to measure from.
+</Note>
+
+### Adding or Removing Cards
+
+When you add or remove a card from the index, CardVault **recalculates the divisor** before the change takes effect in the next snapshot. This keeps the index continuous — the index value does not jump simply because you swapped out a component, just as the S&P 500 does not reset to zero when a company is added.
+
+```
+new_divisor = new_total_value / current_index_value
+```
+
+This means historical snapshots remain meaningful and comparable even after you change the composition of your index.
+
+---
+
+## Managing Your Index Cards
+
+### Searching and Adding Cards
+
+From the CardVault 50 page, use the search bar to find cards by player name, set, or card ID. Click **Add** on any result to include it in the index. CardVault enforces the **50-card cap** — once you have 50 components, the Add button is disabled for all search results until you remove a card.
+
+### Removing Cards
+
+Each card in your current index list has a **Remove** button. Removing a card adjusts the divisor immediately so the index value remains continuous at the next snapshot.
+
+<Warning>
+  Removing a card from the index is permanent for historical purposes — past snapshots that included that card's value are frozen and do not change, but future snapshots will no longer include it.
+</Warning>
+
+---
+
+## Taking Snapshots
+
+Snapshots are **manual** — CardVault does not automatically record the index value on a schedule. You decide when to capture a moment in time.
+
+<Steps>
+  <Step title="Review your current index composition">
+    Confirm that the cards listed are the ones you want tracked. Check that all 50 slots are filled if you want maximum resolution.
+  </Step>
+  <Step title="Take the snapshot">
+    Click the **Take Snapshot** button on the CardVault 50 page. CardVault computes the current total value of your index components, divides by the divisor, and records the resulting index value along with the timestamp.
+  </Step>
+  <Step title="View it on the chart">
+    The new data point appears immediately on the historical chart. Take snapshots regularly — weekly or after major price lookups — to build a meaningful time series.
+  </Step>
+</Steps>
+
+---
+
+## The Historical Chart
+
+The chart plots every snapshot you have taken as a connected line, with the index value on the y-axis and the snapshot date on the x-axis. It gives you a visual record of how your personally curated 50 cards have performed over time relative to your own baseline.
+
+---
+
+## Choosing the Right Cards
+
+<Tip>
+  For the most meaningful index movement, populate your CardVault 50 with cards that have **market-priced values** — specifically cards priced via Card Ladder or eBay lookup. Cards priced by estimate or a default pricing rule tend to hold flat values and will **dampen real movement** in the index, making it harder to detect genuine market trends in your collection.
+</Tip>
+
+<CardGroup cols={2}>
+  <Card title="Good Index Candidates" icon="circle-check">
+    Cards with recent eBay sold comps, graded cards with active populations, rookie cards of active players — anything with a price that genuinely responds to the market.
+  </Card>
+  <Card title="Poor Index Candidates" icon="circle-xmark">
+    Commons carrying a flat default price, vintage cards with no recent sales priced by estimate only, or duplicates of the same card type.
+  </Card>
+</CardGroup>

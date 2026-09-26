@@ -1,0 +1,81 @@
+---
+title: "Value History: How CardVault Tracks Card Price Changes"
+sidebarTitle: "Value History"
+description: "CardVault logs a history entry only when a card's value changes, powering your dashboard chart, monthly reports, and future gainers/decliners views."
+---
+
+CardVault keeps a running record of how every card's value moves over time. Rather than snapshotting every card on every run, the system uses **delta storage** — a new history entry is written only when a card's value actually changes. This keeps the history lean while still capturing every meaningful price movement.
+
+Value history powers two major features: the **dashboard value chart** (which plots your total collection value over time) and **monthly collection reports** (which surface the biggest movers, gains, and losses for the period).
+
+## How Captures Are Triggered
+
+Value captures run automatically and can also be triggered manually.
+
+<CardGroup cols={2}>
+  <Card title="Automatic — After Import" icon="file-import">
+    Every time you complete an import, CardVault runs a value capture immediately after the merge finishes. Any card whose value changed during the import gets a new history row.
+  </Card>
+  <Card title="Manual — On Import Page" icon="hand-pointer">
+    A **Capture Value History** button on the Import page lets you trigger a capture at any time — for example, after a batch of eBay lookups or after applying default value rules outside of an import workflow.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Get into the habit of running a **manual capture** after finishing a session of eBay price lookups or after applying a default value rule. Because those operations happen outside the import workflow, the automatic post-import capture won't catch those changes — you need to trigger it yourself.
+</Tip>
+
+## The Baseline Capture
+
+<Note>
+  The very first value capture — whenever it runs — stores a row for **every card** in the database, regardless of whether values changed (since there's no prior state to compare against). This baseline is what all future delta comparisons measure from. Subsequent captures only write rows for cards whose value differs from their last recorded entry.
+</Note>
+
+## What Gets Logged
+
+Every capture — automatic or manual — logs a summary record so you can confirm it ran and see how much changed:
+
+| Field | Description |
+|---|---|
+| Trigger type | `import` for automatic captures; `manual` for button-triggered captures |
+| Category | The sports/collection category that was examined |
+| Cards examined | Number of cards evaluated during the capture |
+| Rows written | Number of new history entries actually written (cards whose value changed) |
+
+Review these log entries to confirm captures are running and to spot categories where values are changing frequently.
+
+## Delta Storage Explained
+
+When a capture runs, CardVault compares each card's current value against its most recent recorded history entry. A new row is written only if the value is different. This means:
+
+- **No value change** → no new row (no noise in the history table)
+- **Value increases or decreases** → one new row recording the updated amount and the capture timestamp
+- **Card added for the first time** (baseline run or new card after first capture) → one new row establishing the starting point
+
+This approach keeps queries fast and history meaningful — every row represents a real change.
+
+## What Value History Powers
+
+<CardGroup cols={2}>
+  <Card title="Dashboard Chart" icon="chart-area" href="/analytics/dashboard">
+    The total collection value chart on the dashboard is drawn from aggregated value history snapshots, showing how your portfolio has grown or shifted over time.
+  </Card>
+  <Card title="Monthly Reports" icon="newspaper" href="/analytics/monthly-reports">
+    Monthly reports use value history to identify the biggest gainers and decliners during the report period and calculate net value movement across the collection.
+  </Card>
+</CardGroup>
+
+## Planned: Gainers & Decliners View
+
+A dedicated **Gainers & Decliners** view — showing which individual cards increased or decreased in value between any two capture dates — is planned for a future update. The history data is already being stored today, so this view will be able to look back across your full history when it ships.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="eBay Price Lookup" icon="dollar-sign" href="/pricing/ebay-price-lookup">
+    Look up individual card prices from recent eBay sold listings.
+  </Card>
+  <Card title="Default Value Rules" icon="sliders" href="/pricing/default-value-rules">
+    Apply bulk pricing to groups of cards using condition-based rules.
+  </Card>
+</CardGroup>

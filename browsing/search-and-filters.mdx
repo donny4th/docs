@@ -1,0 +1,69 @@
+---
+title: "Searching and Filtering Your CardVault Card Collection"
+sidebarTitle: "Search & Filters"
+description: "Use the search bar and filter panel to find any card by player name, description, or attribute — autograph, grade, rookie, serial number, or memorabilia."
+---
+
+Finding a specific card among 56,000+ entries is fast with CardVault's search bar and filter panel. You can type a player name or partial description to narrow results instantly, then layer on attribute filters — autographed, graded, rookie, serial numbered, or memorabilia — to drill down exactly where you need to go. Filters persist as you paginate and re-sort, so you never lose your place mid-search.
+
+## The Search Bar
+
+The search bar appears at the top of every inventory page. It searches across **player name** and the full **card description** string (year, brand, card type, card number, and player combined). Partial matches work — typing `Luka` will surface all Luka Dončić cards, and typing `2021 Topps` will return every card from that set.
+
+Press **Enter** or click the search icon to submit. When an active search term is present, a small **×** button appears at the right edge of the search bar — click it to clear the search and return to the full unfiltered inventory.
+
+<Tip>
+  Search is case-insensitive. `prizm`, `Prizm`, and `PRIZM` all return the same results.
+</Tip>
+
+## The Filter Panel
+
+Click the **Filters** button (funnel icon) in the inventory toolbar to slide open the filter panel from the right side of the screen. The panel contains five toggle filters you can enable in any combination.
+
+<Note>
+  The filter panel uses an **Apply** button — filters do **not** take effect live as you toggle them. Enable or disable whichever combination you need, then click **Apply** to reload the inventory with those filters active. This prevents unnecessary round-trips to the server while you decide on your filter combination.
+</Note>
+
+### The 5 Toggle Filters
+
+<CardGroup cols={1}>
+  <Card title="Autographed" icon="pen-nib">
+    Shows only cards that have an autograph status recorded. This includes any autographed card regardless of format — on-card, sticker, or otherwise.
+  </Card>
+  <Card title="Graded" icon="shield-halved">
+    Shows only professionally graded cards. This captures every card in your inventory that has a grader recorded — PSA, BGS, SGC, CGC, and any other grading company.
+  </Card>
+  <Card title="Rookie Cards" icon="baby">
+    Shows only cards with a rookie card designation. Rookie status is tracked as a dedicated attribute so you can isolate your entire RC inventory across all players and sets.
+  </Card>
+  <Card title="Serial Numbered" icon="hashtag">
+    Shows only cards that are individually stamped with a serial number (e.g., `42/99`, `7/25`, `199/250`). This is the **true** serial number filter — cards that have a known print run but are not individually stamped are **excluded** and show a **PR** badge instead.
+  </Card>
+  <Card title="Memorabilia" icon="shirt">
+    Shows only memorabilia relic cards — patch cards, jersey cards, bat cards, and any other card with a physical memorabilia relic embedded.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Serial Numbered vs. Print Run:** The Serial Numbered filter matches only cards that are individually stamped with a number, shown with an **SN** badge. Cards where the print run quantity is documented but no individual stamp exists show a **PR** badge instead and are **not** returned by this filter. See [Browsing Your Card Inventory](/browsing/inventory) for more on the SN/PR badge distinction.
+</Note>
+
+## Filter Chips
+
+When one or more filters are active, **filter chips** appear in a row directly below the search bar. Each chip labels the active filter (e.g., `Graded`, `Rookie Cards`) and includes an **×** to remove that individual filter without opening the panel again. Removing a chip takes effect immediately.
+
+This chip bar gives you a persistent at-a-glance summary of what is currently constraining your view, even after you close the filter panel.
+
+## Combining Search and Filters
+
+Search and filters work together — you can type a player name in the search bar **and** have one or more filters active at the same time. CardVault applies both constraints simultaneously, so `search = "Wemban" + Graded filter` returns only graded Victor Wembanyama cards.
+
+## Persistence Across Pagination and Sorting
+
+Active search terms and filter selections are preserved in the URL as query parameters. This means:
+
+- Clicking to the **next page** keeps your filters intact.
+- Changing the **sort column** keeps your filters intact.
+- You can **bookmark** or **copy the URL** to return directly to the same search/filter state later.
+
+To fully reset the view, click the **×** in the search bar to clear search text and use the filter chips (or re-open the panel) to disable all active filters.

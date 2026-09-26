@@ -1,0 +1,74 @@
+---
+title: "Adding and Managing Card Images in the Detail Panel"
+sidebarTitle: "Uploading Images"
+description: "Upload, replace, and delete front and back card images for any individual card directly from its detail panel using paste, drag-and-drop, or file picker."
+---
+
+Every card in CardVault has two dedicated image slots accessible from the **card detail panel** — one for the front and one for the back. The detail panel lets you upload images for individual cards on demand, without going through the Image Queue. This is the right approach when you want to add or fix an image for a specific card you already have open.
+
+## Opening the Detail Panel
+
+Click any card row in the inventory browser to slide open its detail panel on the right side of the screen. The panel displays the card's attributes, value history, and the two image slots at the top.
+
+## Image Slots
+
+Each slot renders at a **5:7 aspect ratio**, matching the standard trading card proportions, so your scans display true to life without distortion. The front slot is on the left; the back slot is on the right.
+
+<CardGroup cols={2}>
+  <Card title="Front Image" icon="image">
+    Required for a card to be considered "imaged." Uploading a front image marks the card as having image coverage — it counts toward coverage stats and qualifies the card for image badges in Top 100 and other views.
+  </Card>
+  <Card title="Back Image" icon="images">
+    Optional. Useful for cards where the back contains notable information: autograph authentications, serial number stamps, or reverse stats. Can be added at any time independently of the front.
+  </Card>
+</CardGroup>
+
+## Uploading an Image
+
+To add an image to an empty slot:
+
+<Steps>
+  <Step title="Open the card detail panel">
+    Click the target card in the inventory list. The detail panel slides open, showing the empty front and back image placeholders.
+  </Step>
+  <Step title="Upload via paste, drag-and-drop, or click">
+    You have three ways to fill a slot: press **Ctrl+V** anywhere on the page to paste an image from your clipboard, **drag** an image file from your file manager and drop it onto the desired slot, or **click** the slot to open a file picker and select a file. All three methods work for either slot, and any image format you can paste or drag is accepted.
+  </Step>
+  <Step title="Wait for processing">
+    CardVault normalizes all uploaded images to **JPEG** format before storing them, regardless of the source format. The slot updates immediately once processing is complete.
+  </Step>
+</Steps>
+
+<Note>
+  To replace an existing image, you must **delete it first** and then upload the new one. Dropping a new file onto a filled slot does not overwrite — the delete step is required. See [Deleting an Image](#deleting-an-image) below.
+</Note>
+
+## Deleting an Image
+
+To remove a front or back image:
+
+1. Hover over the filled image slot in the detail panel.
+2. A **× button** appears in the corner of the slot.
+3. Click **×** to confirm deletion.
+
+The slot returns to its empty placeholder state and the card's image coverage status updates accordingly.
+
+<Warning>
+  Image deletion is immediate and cannot be undone from within CardVault. Make sure you have a local copy of the image file before deleting if you may want it again.
+</Warning>
+
+## Image Coverage and Stats
+
+<Tip>
+  The front slot is the canonical indicator of image coverage. Uploading any front image — regardless of quality or source — marks the card as "imaged" for the purposes of coverage statistics, Top 100 image badges, and any filtered views that surface un-imaged cards. The back image is tracked separately and does not affect this status.
+</Tip>
+
+Upload a front image to a card and it immediately:
+
+- Counts toward your **collection image coverage percentage** on the Dashboard
+- Becomes eligible for the **image badge** in Top 100 and card list views
+- Is excluded from the Image Queue's default un-imaged pass (though it may still appear if you filter explicitly for cards missing a back image)
+
+## Images Survive Imports
+
+CardVault stores card images in a **separate, dedicated store** that the import process never touches. When you re-import an updated Excel workbook, every front and back image you have already uploaded remains intact — only card attributes and values are refreshed. You will never need to re-upload images after a routine inventory import.

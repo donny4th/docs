@@ -1,0 +1,129 @@
+---
+title: "Analytics Dashboard: KPIs, Charts & Collection Breakdown"
+sidebarTitle: "Dashboard"
+description: "Explore your collection at a glance — KPI tiles, composition breakdowns, attribute counts, and an interactive value/card-count chart with time filtering."
+---
+
+The Analytics Dashboard is your collection's command center. Every time you open it, CardVault computes live figures from your database and presents them in three stacked sections: high-level KPIs, composition tiles that break down what you own, and an interactive chart that plots how your collection has changed over time. Navigate there by clicking **Analytics → Dashboard** in the top navigation bar.
+
+---
+
+## Section 1 — KPI Tiles
+
+Four tiles span the top of the page, each giving you a single, instantly readable number.
+
+<CardGroup cols={4}>
+  <Card title="Total Value" icon="dollar-sign">
+    The sum of all card values across every category in your collection.
+  </Card>
+  <Card title="Total Cards" icon="layer-group">
+    The raw count of every individual card record in the database.
+  </Card>
+  <Card title="Unique Card Types" icon="fingerprint">
+    The number of distinct card definitions — multiple copies of the same card each add to Total Cards but count as one Unique Card Type.
+  </Card>
+  <Card title="CardVault 50 Index" icon="chart-line">
+    The current index value, normalized to 100 at your first snapshot. Displays a **change vs. the prior snapshot** so you can see movement at a glance. Shows **—** until the first snapshot has been taken.
+  </Card>
+</CardGroup>
+
+---
+
+## Section 2 — Composition Tiles
+
+Three tiles sit below the KPIs and give you a structural picture of your collection.
+
+### Graded Cards
+
+This tile shows the total count of graded cards in your collection and your overall **gem rate** — the percentage of graded cards that meet the gem mint threshold:
+
+| Grading Company | Gem Mint Boundary |
+|---|---|
+| PSA | Grade **10** or higher |
+| SGC | Grade **10** or higher |
+| CGC | Grade **10** or higher |
+| TAG | Grade **10** or higher |
+| AWG | Grade **10** or higher |
+| BGS (Beckett) | Grade **9.5** or higher |
+
+<Note>
+  Beckett uses **9.5** as its "Gem Mint" designation, which is why the BGS boundary sits below 10. A BGS 9 ("Mint") does not count toward gem rate.
+</Note>
+
+Below the gem rate percentage, the tile lists your **top 4 grading companies** by volume with proportional horizontal bars so you can see your grader mix at a glance. If you use more than four graders, the remaining companies are collapsed and not individually shown.
+
+### Collection Stats
+
+This tile covers image coverage and release-era distribution.
+
+- **Image Coverage %** — the share of card types that have at least a front image attached.
+- **Unique Card Types** — mirrors the KPI tile for quick cross-reference.
+- **Release-Year Era Breakdown** — a six-row table showing how many cards fall into each collector era:
+
+| Era | Years |
+|---|---|
+| Boomer | Pre-1960 |
+| Vintage | 1960–1980 |
+| Junk Wax | 1981–1993 |
+| Nostalgia | 1994–1998 |
+| Modern | 1999–2017 |
+| Ultra-Modern | 2018+ |
+
+Cards without a known release year are not counted in the era table.
+
+### Attributes
+
+A four-count tile listing the number of cards in your collection that carry each of the four major attribute flags:
+
+<CardGroup cols={2}>
+  <Card title="Rookie Cards" icon="star">
+    Cards with the **RC** (rookie card) flag set.
+  </Card>
+  <Card title="Autographs" icon="pen-nib">
+    Cards with the **AU** (autograph) flag set.
+  </Card>
+  <Card title="Relics" icon="shirt">
+    Cards with the **MEM** (memorabilia/relic) flag set.
+  </Card>
+  <Card title="Serial Numbered" icon="hashtag">
+    Cards that carry an individually stamped serial number — for example, 047/250 physically printed on the card. Cards where only the print run is known but no individual number is stamped are not counted here.
+  </Card>
+</CardGroup>
+
+<Info>
+  The **SN** badge means the card has an individually stamped serial number (e.g., 12/100 printed on the card). A card with only a known print run but no individual serial stamp shows a **PR** badge instead and is not counted in the Serial Numbered attribute tile.
+</Info>
+
+---
+
+## Section 3 — Value/Cards Chart
+
+The bottom section of the Dashboard is a fully interactive chart that plots your collection's history.
+
+### Controls
+
+<CardGroup cols={3}>
+  <Card title="Category Dropdown" icon="filter">
+    Filter the chart to a single sports category or view **All Categories** combined.
+  </Card>
+  <Card title="Time Range Selector" icon="calendar">
+    Choose from **7 Days**, **1 Month**, **1 Year**, or **All Time** to zoom the x-axis.
+  </Card>
+  <Card title="Value / Cards Toggle" icon="toggle-on">
+    Switch between plotting **Total Value** (dollar amount) and **Total Cards** (count). Both datasets exist for every data point — toggling just changes which line is foregrounded.
+  </Card>
+</CardGroup>
+
+### Period KPI Row
+
+Directly below the chart, a three-cell row summarizes the visible window:
+
+| Cell | What it shows |
+|---|---|
+| **Period Start** | The value or card count at the left edge of the selected time range |
+| **Period End** | The value or card count at the right edge of the selected time range |
+| **Change** | The absolute and percentage difference between Period Start and Period End |
+
+<Tip>
+  Use the **7 Days** range after running a large import to quickly confirm that both your card count and total value moved in the expected direction.
+</Tip>

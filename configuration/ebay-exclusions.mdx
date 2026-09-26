@@ -1,0 +1,94 @@
+---
+title: "eBay Search Exclusions: Filter Irrelevant Listings"
+sidebarTitle: "eBay Exclusions"
+description: "Control which eBay listings get filtered out during price lookups by managing the exclusion keyword list that appends -keyword to every search query."
+---
+
+When CardVault queries eBay's sold listings for a price estimate, it builds a search string from the card's attributes and appends every keyword in your exclusion list as a negative term — for example, adding `reprint` to the list causes every eBay search to include `-reprint`. This keeps irrelevant or misleading listings (reprints, lots, custom cards) out of your price lookups so the results actually reflect the card you own. Managing this list well is one of the highest-leverage ways to improve lookup accuracy across your entire inventory.
+
+## Opening the eBay Exclusions Page
+
+The eBay Exclusions page lives under **Analytics** in the main navigation. Navigate to:
+
+```
+http://127.0.0.1:5000/ebay-exclusions
+```
+
+The page shows your full current exclusion list and provides controls to add or delete keywords.
+
+## How Exclusions Work
+
+Every keyword you add is appended to the eBay sold-listings query as `-keyword`. Because this happens globally for every lookup, you want keywords that are broadly irrelevant to your collection — things that appear in listing titles for items you never want to see in results.
+
+### Useful Exclusion Examples
+
+<CardGroup cols={3}>
+  <Card title="reprint" icon="copy">
+    Removes reprint and reproduction listings, which can dramatically undervalue a genuine vintage card.
+  </Card>
+  <Card title="lot" icon="layer-group">
+    Filters out multi-card lot listings whose prices are not comparable to a single card.
+  </Card>
+  <Card title="custom" icon="paintbrush">
+    Excludes fan-made custom cards that have no bearing on real card values.
+  </Card>
+</CardGroup>
+
+Other candidates to consider: `photo`, `poster`, `display`, `proxy`, `damaged`, `sticker`.
+
+## Adding a Keyword
+
+<Steps>
+  <Step title="Go to the eBay Exclusions page">
+    Navigate to `/ebay-exclusions` via the **Analytics** section of the sidebar.
+  </Step>
+  <Step title="Type the keyword">
+    Enter the term in the input field. Use a single word or short phrase — no leading hyphen needed, CardVault adds the `-` prefix automatically.
+  </Step>
+  <Step title="Click Add">
+    Click **Add**. The keyword is saved immediately and will be applied to all subsequent eBay lookups.
+  </Step>
+</Steps>
+
+## Deleting a Keyword
+
+Find the keyword you want to remove in the list and click the **Delete** (trash) icon next to it. The keyword is removed immediately and will no longer appear in eBay queries.
+
+## Stem Matching — Auto-Skip for Relevant Cards
+
+Adding a blanket exclusion like `autograph` would normally filter out autographed cards from your results — exactly the opposite of what you want for AU cards. CardVault prevents this with **stem matching**: before appending an exclusion to a query, CardVault checks whether the keyword's root (first 5+ characters) already appears in the card's own description or attributes. If it does, that exclusion is **skipped for that card only**. Keywords shorter than five characters are always applied — they are too short for reliable stem matching.
+
+<Info>
+  Stem matching is card-specific. The same keyword might be applied for one card and skipped for another, depending on each card's data.
+</Info>
+
+### Auto-Skip Examples
+
+| Exclusion Keyword | Skipped For... | Applied For... |
+|-------------------|---------------|---------------|
+| `autograph` | Cards with the autograph flag (AU badge) — the word already describes the card | Non-autographed base cards |
+| `rookie` | Cards with the rookie flag (RC badge) | Non-rookie cards |
+| `refractor` | Cards whose description includes "refractor" | Cards that are not refractors |
+| `serial` | Cards whose description references a serial-numbered run | Base and non-numbered cards |
+
+This means you can safely add broad terms like `autograph` to your exclusion list — AU cards will automatically skip it so their lookup still returns signed card comps, while non-AU cards benefit from filtering out listings where "autograph" appears incidentally in the title.
+
+## Serial-Numbered Cards Skip All Exclusions
+
+<Tip>
+  Cards with a **serial number** (individually numbered cards with a visible serial number on the card) automatically skip the entire exclusion list. The search query for a serial-numbered card already includes the `/print_run` suffix (e.g., `/25`), which narrows the results to that exact print run. Applying additional exclusions on top of that tight query can eliminate too many valid comps — so CardVault skips them entirely for SN cards.
+</Tip>
+
+## Exclusion List Strategy
+
+<Accordion title="How many keywords should I have?">
+  There's no hard limit, but a focused list of 10–20 high-impact exclusions performs better than hundreds of narrow ones. Start with universal noise terms like `reprint`, `lot`, and `custom`, then add terms as you notice specific junk listings polluting your lookups. Review the actual eBay results shown in the price lookup panel to identify patterns worth excluding.
+</Accordion>
+
+<Accordion title="What about multi-word phrases?">
+  Multi-word phrases work but are applied as a single negative term — eBay treats `-multi word` as excluding listings with both words adjacent in that order. For broader filtering, use individual single-word exclusions rather than phrases.
+</Accordion>
+
+<Accordion title="Can exclusions affect all three search modes?">
+  Yes. Exclusion keywords are appended to the query in **raw**, **specific**, and **any** search modes. The only time exclusions are bypassed is for serial-numbered cards, as described above.
+</Accordion>

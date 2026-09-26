@@ -1,0 +1,77 @@
+---
+title: "Get Started with CardVault in 5 Minutes"
+sidebarTitle: "Quickstart"
+description: "Launch CardVault for the first time, open it in your browser, and complete your first Excel inventory import in just a few steps."
+---
+
+CardVault runs locally on your machine and opens in your browser — no internet connection required. This guide walks you through launching the app and importing your first inventory workbook so you can start exploring your collection right away.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- CardVault installed and ready to launch on your machine
+- At least one `.xlsm` inventory workbook ready to upload
+
+## Launch and Import
+
+<Steps>
+  <Step title="Start CardVault">
+    Launch CardVault using the startup shortcut or script provided during installation. Once it's running, you'll see a confirmation that the app is available at:
+
+    ```
+    http://127.0.0.1:5000
+    ```
+
+    Leave the CardVault process running in the background — closing it will shut down the app.
+  </Step>
+
+  <Step title="Open CardVault in your browser">
+    Open your browser and go to:
+
+    ```
+    http://127.0.0.1:5000
+    ```
+
+    The CardVault home page will load. You can switch between dark and light themes using the theme toggle in the navigation bar.
+  </Step>
+
+  <Step title="Navigate to Import Inventory">
+    Click **Import** in the top navigation bar (or go directly to [http://127.0.0.1:5000/import](http://127.0.0.1:5000/import)).
+
+    The Import page lets you upload an `.xlsm` workbook to populate or refresh your inventory for a given sport category.
+  </Step>
+
+  <Step title="Select your workbook and upload">
+    On the Import page:
+
+    1. Use the **Workbook** dropdown to select the sport or category that matches your file (e.g., *Basketball (excluding Dirk)*, *Baseball*, *Hockey*).
+    2. Click **Choose File** and select your `.xlsm` workbook.
+    3. Click **Import** to begin the upload.
+
+    CardVault will process the file, wipe the existing cards for that category, and import all rows from your workbook. For a full explanation of how values are reconciled during import, see [Importing Inventory](/importing-inventory).
+  </Step>
+
+  <Step title="Confirm in Import History">
+    After the import completes, scroll down to the **Import History** table or navigate to the history section of the Import page. You should see a new entry with:
+
+    - The workbook type you selected
+    - A timestamp for the import
+    - A count of cards imported
+
+    Your inventory is now live. Head to [http://127.0.0.1:5000/inventory](http://127.0.0.1:5000/inventory) to start browsing your cards.
+  </Step>
+</Steps>
+
+<Tip>
+  If a page looks out of date after the app updates, do a hard refresh with **Ctrl+Shift+R** (Windows/Linux) or **Cmd+Shift+R** (Mac) to force the browser to reload all cached assets.
+</Tip>
+
+## What's Next
+
+Now that CardVault is running and your first workbook is imported, explore what you can do:
+
+- **[Importing Inventory](/importing-inventory)** — Understand value reconciliation modes, the smart merge logic, and how to manage multiple workbook types
+- **[Browsing Your Inventory](/browsing/inventory)** — Navigate your card list and open individual card records
+- **[eBay Price Lookup](/pricing/ebay-price-lookup)** — Look up real sold prices for any card using Apify
+- **[Analytics Dashboard](/analytics/dashboard)** — See your collection's total value and top cards at a glance

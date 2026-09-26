@@ -1,0 +1,145 @@
+---
+title: "Card Detail Panel: Images, Values, and Collections"
+sidebarTitle: "Card Detail Panel"
+description: "Open the card detail panel to inspect all fields, manage images, trigger an eBay lookup, check GemRate population data, and update collection membership."
+---
+
+The card detail panel is your single-pane view into everything CardVault knows about a card. Clicking any card row in list view or any tile in grid view slides the panel in from the right, letting you inspect all fields, manage images, trigger an eBay price lookup, check grading population data, and add or remove the card from a collection — all without leaving the inventory page.
+
+## Opening the Panel
+
+Click any card row (list view) or card tile (grid view) to open the detail panel. The panel slides in from the right edge of the screen and overlays the inventory. Click anywhere outside the panel, or click the **×** button in its top-right corner, to close it and return to the full inventory.
+
+## Card Description and Copy Button
+
+The top of the panel displays the full structured card description:
+
+```
+2022 Panini Prizm Base #55 Luguentz Dort
+```
+
+The format is: **year · brand · card_type · #card_num · subject**, followed by any applicable badges:
+
+| Badge | Appears when… |
+|---|---|
+| `SN{print_run}` | Card is individually stamped with a serial number (e.g., `SN99`) |
+| `PR{print_run}` | Print run quantity is known, but card is not individually stamped |
+| `RC` | Card is a designated rookie card |
+| `MEM` | Card has a memorabilia relic |
+| `AU` | Card is autographed |
+| `{Grader}/{Grade}` | Card is graded — e.g. `PSA/10` or `BGS/9.5` |
+
+A **copy-to-clipboard** icon sits next to the description. Click it to copy the full description string — useful when listing cards for sale or cross-referencing with external databases.
+
+## Card Fields
+
+Below the description, the panel shows all stored fields for the card, including:
+
+- Year, brand, card type, card number, subject
+- Category and Card ID (e.g., `1043521` for a Basketball card)
+- Autograph status, rookie designation, relic type
+- Grader and grade
+- Serial number and/or print run
+- Current value and value source
+
+## Value and Value Source Badge
+
+The card's current value is displayed with a colored **source badge** indicating how the value was determined:
+
+<CardGroup cols={2}>
+  <Card title="CL — Card Ladder" icon="circle" color="#22c55e">
+    Green badge. Value sourced from Card Ladder price data.
+  </Card>
+  <Card title="Est — Estimated" icon="circle" color="#6b7280">
+    Gray badge. Value is a manual estimate.
+  </Card>
+  <Card title="eBay — eBay Lookup" icon="circle" color="#3b82f6">
+    Blue badge. Value set from a recent eBay sold listing lookup.
+  </Card>
+  <Card title="Def — Default Rule" icon="circle" color="#f97316">
+    Orange badge. Value applied by a default value rule.
+  </Card>
+</CardGroup>
+
+<Note>
+  The **eBay price lookup** for this card is triggered directly from the detail panel. Look for the **eBay Lookup** button near the value section. Clicking it opens the eBay search modal where you can review sold listings and apply a price. See [eBay Price Lookup](/pricing/ebay-price-lookup) for the full workflow.
+</Note>
+
+## Front and Back Images
+
+The panel includes two image slots — **Front** and **Back** — displayed side by side. If an image has been uploaded, it appears in the slot; if not, the slot shows an empty placeholder.
+
+### Uploading Images
+
+<Steps>
+  <Step title="Click or drag onto the empty slot">
+    Click the empty image slot to open a file picker, or drag an image file directly onto the slot. Both JPEG and PNG files are accepted.
+  </Step>
+  <Step title="Paste from clipboard (Ctrl+V)">
+    With the panel open, press **Ctrl+V** to paste an image directly from your clipboard. This is the fastest workflow when scanning cards — scan to clipboard, open the panel, paste.
+  </Step>
+  <Step title="Confirm the upload">
+    The slot updates immediately with the new image once the upload completes. No separate save step is required.
+  </Step>
+</Steps>
+
+### Deleting Images
+
+Hover over an existing image to reveal the **×** delete button in the corner of the slot. Click **×** to remove the image. CardVault will ask you to confirm before permanently deleting the file.
+
+<Warning>
+  Image deletion is permanent. There is no undo. Make sure you no longer need the scan before confirming the deletion.
+</Warning>
+
+## External Grader Lookup Links
+
+For graded cards, the panel displays quick-link buttons to look up the card on the grader's official population report website:
+
+<CardGroup cols={2}>
+  <Card title="PSA" icon="arrow-up-right-from-square" href="https://www.psacard.com">
+    Opens PSA's Set Registry / population report for this card.
+  </Card>
+  <Card title="BGS / Beckett" icon="arrow-up-right-from-square" href="https://www.beckett.com">
+    Opens Beckett's grading population lookup for this card.
+  </Card>
+  <Card title="SGC" icon="arrow-up-right-from-square" href="https://www.sgccard.com">
+    Opens SGC's population report for this card.
+  </Card>
+  <Card title="CGC" icon="arrow-up-right-from-square" href="https://www.cgccomics.com">
+    Opens the CGC population lookup for this card.
+  </Card>
+</CardGroup>
+
+Only the grader links relevant to the card's recorded grader are highlighted as active; others are shown but dimmed.
+
+## GemRate Population Data
+
+At the bottom of the detail panel, the **GemRate** section displays grading population data sourced from [gemrate.com](https://gemrate.com). This shows the population breakdown across grades for the card's specific set and player — useful for understanding scarcity at gem-mint levels.
+
+<Note>
+  GemRate data is not fetched live. It requires a manual paste workflow: visit gemrate.com, look up the card, copy the population table, and paste it into CardVault via the GemRate configuration page. See [GemRate Population](/configuration/gemrate-population) for setup instructions.
+</Note>
+
+The gem-mint boundary CardVault uses when highlighting top grades:
+- **PSA, SGC, CGC**: grade **10** and above
+- **BGS (Beckett)**: grade **9.5** and above (Beckett designates 9.5 as "Gem Mint")
+
+## Collection Membership
+
+The detail panel shows which collections (if any) the card currently belongs to. An **Add to Collection** button opens a modal listing all your curated collections. Check or uncheck collections and click **Save** to update membership.
+
+<Steps>
+  <Step title="Click 'Add to Collection'">
+    The collection modal slides in, showing all available collections with checkboxes.
+  </Step>
+  <Step title="Select or deselect collections">
+    Check any collections you want this card to belong to. Uncheck to remove it from a collection.
+  </Step>
+  <Step title="Click Save">
+    CardVault updates collection membership immediately. The panel refreshes to reflect the new membership list.
+  </Step>
+</Steps>
+
+<Tip>
+  A card can belong to multiple collections at the same time. For example, a graded Dirk Nowitzki rookie could live in both your **Dirk Nowitzki PC** collection and a **Top Rookies** curated collection simultaneously.
+</Tip>

@@ -1,0 +1,107 @@
+---
+title: "AI Data Quality Audit: 13 Checks and Haiku Analysis"
+sidebarTitle: "AI Audit"
+description: "Run 13 SQL data quality checks against your inventory and get a plain-English Claude Haiku analysis that tells you exactly what needs fixing and why."
+---
+
+The AI Audit page runs 13 targeted SQL checks against your entire card database and — optionally — sends the results to **Claude Haiku** for a plain-English summary that explains what is wrong, why it matters, and what to do about it. Navigate there via **Analytics → AI Audit**.
+
+<Tip>
+  Run the audit **after a large import** and again **after applying bulk default value rules**. Imports can introduce typos, inconsistent grader names, and mismatched serial/print run data. Bulk pricing can accidentally set values on cards that already had manually researched prices.
+</Tip>
+
+---
+
+## Running the Checks
+
+Click **Run Audit** to execute all 13 checks simultaneously. Results appear in a table — each check shows a name, a short description, and the number of affected records. Checks that find zero issues show a green pass indicator; checks with findings show a count you can expand to see the specific cards.
+
+---
+
+## Running the AI Analysis
+
+Once the audit results are loaded, click **Run AI Analysis**. CardVault packages the findings and sends them to Claude Haiku (Anthropic), which returns a structured plain-English report within a few seconds. The analysis:
+
+- Groups related issues together
+- Explains the data integrity implication of each problem
+- Prioritizes which issues are worth fixing first
+- Suggests the most efficient workflow for resolving each type
+
+---
+
+## The 13 Data Quality Checks
+
+<Accordion title="1 — Serial Exceeds Print Run">
+  Finds cards where `serial_num` is greater than `print_run`. A card numbered 250/100 is logically impossible and indicates a data entry error on either field.
+</Accordion>
+
+<Accordion title="2 — Grade/Grader Mismatch">
+  Finds cards where a grade is recorded but no grader is set, or a grader is set but no grade is recorded. A graded card should always have both fields populated together.
+</Accordion>
+
+<Accordion title="3 — Duplicate Serial Numbers">
+  Finds cases where the same serial number appears on multiple cards that belong to the same set and card number combination. Each physically serialized card should be unique within its print run.
+</Accordion>
+
+<Accordion title="4 — 1-of-1 Wrong Serial Number">
+  Finds cards with `print_run = 1` where `serial_num` is not 1. A true 1-of-1 must be numbered 1/1.
+</Accordion>
+
+<Accordion title="5 — Missing or Zero Value">
+  Finds cards with a null or zero value. These cards are invisible to all value-based analytics, including the Top 100 and CardVault 50, and will not contribute to your total collection value.
+</Accordion>
+
+<Accordion title="6 — Serial Without Print Run">
+  Finds cards that have a `serial_num` but no `print_run`. While technically possible (you might not know the edition size), it usually indicates an incomplete data entry — the print run should be added when known.
+</Accordion>
+
+<Accordion title="7 — Cert Number/Grader Mismatch">
+  Finds graded cards where the certification number format does not match the expected pattern for the listed grader. For example, a BGS cert number formatted like a PSA cert number suggests the grader field is wrong.
+</Accordion>
+
+<Accordion title="8 — Impossible Print Run">
+  Finds cards with a `print_run` of zero or a negative number. All valid print runs are positive integers of at least 1.
+</Accordion>
+
+<Accordion title="9 — Negative Value">
+  Finds cards with a value below zero. No card should have a negative dollar value — this always indicates a data entry or import error.
+</Accordion>
+
+<Accordion title="10 — Value Mismatch on Same Card">
+  Finds cases where multiple records share the same card type (same set, card number, and variant) but carry materially different values. This often surfaces after imports where a new value was not reconciled with the stored value.
+</Accordion>
+
+<Accordion title="11 — Subject Conflict on Same Card">
+  Finds records in the same set and card number where the `subject` field (player/person name) differs. This can indicate one record was imported with a typo or a different name format than the rest.
+</Accordion>
+
+<Accordion title="12 — Subject Spelling/Accent Variants">
+  Finds cases where the same player's name appears with different accented characters or alternate spellings across the database. For example, "José" vs "Jose" or "Nowitzki" vs "Nowitski." These variants break name-based searches and HOF lookups.
+</Accordion>
+
+<Accordion title="13 — Subject Suffix Variants">
+  Finds players whose names appear both with and without generational suffixes (Jr., Sr., III, etc.) inconsistently. Standardizing suffixes ensures that all of a player's cards appear together in search results and analytics.
+</Accordion>
+
+---
+
+## Interpreting and Acting on Results
+
+<CardGroup cols={2}>
+  <Card title="High-Priority Fixes" icon="triangle-exclamation">
+    Impossible values (negative, zero, serial exceeds print run, 1-of-1 wrong serial) should be corrected immediately — they affect financial totals and logical integrity.
+  </Card>
+  <Card title="Data Hygiene Fixes" icon="broom">
+    Name spelling variants, suffix variants, and subject conflicts can be batch-corrected in your source Excel workbook and resolved on the next import.
+  </Card>
+  <Card title="Grading Fixes" icon="certificate">
+    Grade/grader mismatches and cert number mismatches are best corrected by checking the physical card or the grading company's online lookup before editing in CardVault.
+  </Card>
+  <Card title="Value Fixes" icon="dollar-sign">
+    Value mismatches on the same card type usually require a judgment call — decide which value is correct and use the card detail panel to update or lock the preferred value.
+  </Card>
+</CardGroup>
+
+<Note>
+  The AI Analysis from Claude Haiku is advisory — it reads the check results and provides guidance, but it does not make any changes to your database. All corrections must be made manually through the card detail panel or by updating your source workbook and reimporting.
+</Note>

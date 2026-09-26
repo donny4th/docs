@@ -1,0 +1,113 @@
+---
+title: "Default Value Rules: Bulk-Price Cards by Condition"
+sidebarTitle: "Default Rules"
+description: "Build condition-based rules to price card groups in bulk. Rules run in priority order — P1 first — and stamp each matched card with value_ind=3."
+---
+
+Default value rules let you assign dollar amounts to large groups of cards at once by describing them with conditions instead of editing each card individually. A rule pairs a condition tree — built from card attributes like category, brand, or grade — with a target dollar value. When you apply a rule, every card that matches its conditions gets that value, and `value_ind` is set to **3** to mark it as rule-priced.
+
+Rules are evaluated in **priority order**: Rule P1 is checked first, P2 second, and so on. The first matching rule wins, so the order you arrange your rules in directly controls which price a card receives when it could satisfy more than one rule.
+
+## Creating a Rule
+
+<Steps>
+  <Step title="Open Default Values">
+    Navigate to **Analytics → Default Values** in the sidebar.
+  </Step>
+  <Step title="Click Add Rule">
+    Click the **Add Rule** button to open the rule builder.
+  </Step>
+  <Step title="Name the rule and set a value">
+    Enter a descriptive rule name and the **default value** (in dollars) to assign to matching cards.
+  </Step>
+  <Step title="Build your conditions">
+    Add one or more condition groups using **AND** / **OR** logic. Each group can nest up to **3 levels deep**, giving you fine-grained control over which cards qualify. See [Condition Builder](#condition-builder) below for available fields and operators.
+  </Step>
+  <Step title="Preview matching cards">
+    Click **Preview** to see a count of how many cards currently match the rule — without changing any values. Use this to validate your conditions before committing.
+  </Step>
+  <Step title="Apply the rule">
+    Click **Apply** to write the value to all matching cards and set their `value_ind` to **3**.
+  </Step>
+</Steps>
+
+<Tip>
+  Always click **Preview** before **Apply**. A surprising match count is a good signal that a condition is broader or narrower than intended. Adjust and preview again until the count looks right.
+</Tip>
+
+## Condition Builder
+
+Each condition targets one field on the card record and evaluates it against a value using a comparison operator.
+
+### Available Fields
+
+You can build conditions against any of the following card attributes:
+
+`category` · `brand` · `card_type` · `subject` · `value` · `value_ind` · `year` · `grader` · `grade` · `autograph` · `rookie` · `relic` · `serial_num` · `print_run` · `set_name`
+
+### Operators
+
+| Operator | Meaning |
+|---|---|
+| `=` | Exactly equals |
+| `!=` | Does not equal (returns FALSE when the field is NULL — see note below) |
+| `IS NOT` | Null-safe not-equal: TRUE when field is NULL **or** not equal to value |
+| `>` | Greater than |
+| `>=` | Greater than or equal to |
+| `<` | Less than |
+| `<=` | Less than or equal to |
+| `IS NULL` | Field has no value |
+| `IS NOT NULL` | Field has any value |
+| `CONTAINS` | Field contains the given substring (case-insensitive) |
+
+<Note>
+  The **IS NOT** operator is null-safe. Unlike `!=` (which returns FALSE when the field is NULL), `IS NOT` returns **TRUE** when the field is NULL. Use `IS NOT` when you want to exclude a specific value but still include cards where the field is empty.
+</Note>
+
+### AND / OR Logic
+
+Within a single rule, conditions are combined with `AND` or `OR` connectors. Groups can be nested up to **3 levels deep**, so you can express logic like:
+
+```text
+(category = Basketball AND rookie = true)
+OR
+(brand = Topps AND year >= 2020 AND value IS NULL)
+```
+
+## Managing Rules
+
+### Active / Inactive Toggle
+
+Each rule has an **active/inactive** toggle. Inactive rules are saved but excluded from evaluation when you click Apply All. Toggle a rule off to suspend it without deleting it.
+
+### Drag to Reorder Priority
+
+Drag any rule row up or down to change its position in the priority queue. The rule at the top is P1 and is evaluated first. Reordering takes effect immediately — no save step required.
+
+### Editing a Rule
+
+Click the **Edit** button on any existing rule to reopen the condition builder with that rule's current settings. You can modify conditions, change the value, rename the rule, or adjust its active status.
+
+<Warning>
+  Editing and re-applying a rule will overwrite previously set values on all currently matching cards. If card data has changed since the last apply, the matching set may be different from what it was before.
+</Warning>
+
+## How Applied Values Are Marked
+
+When a rule is applied, CardVault sets:
+
+- **`value`** → the rule's dollar amount
+- **`value_ind`** → **3** (Default rule)
+
+This distinguishes rule-priced cards from manually entered values (`value_ind = 0`), Card Ladder values (`1`), and eBay lookups (`2`), so you can filter or audit by pricing source at any time.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="eBay Price Lookup" icon="dollar-sign" href="/pricing/ebay-price-lookup">
+    Look up individual card prices from recent eBay sold listings.
+  </Card>
+  <Card title="Value History" icon="chart-line" href="/pricing/value-history">
+    Track how card values change over time after imports and rule applications.
+  </Card>
+</CardGroup>
